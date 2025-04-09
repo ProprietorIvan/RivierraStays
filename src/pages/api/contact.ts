@@ -16,7 +16,7 @@ export default async function handler(
 ) {
     if (request.method === "POST") {
         try {
-            const to = process.env.SMTP_USER;
+            const to = "ivanrogacheov@gmail.com";
 
             const {
                 name,
@@ -39,7 +39,7 @@ export default async function handler(
             const mailOptions = {
                 from: process.env.SMTP_FROM,
                 to,
-                subject: "Property Inquiry from Riviera Stays Website",
+                subject: "New Property Inquiry from Riviera Stays",
                 html: generateEmail({
                     name,
                     email,
@@ -90,6 +90,20 @@ function generateEmail({
     checkOut?: string;
     guests?: string;
 }) {
+    const formattedCheckIn = checkIn ? new Date(checkIn).toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    }) : '';
+
+    const formattedCheckOut = checkOut ? new Date(checkOut).toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    }) : '';
+
     return `
         <html>
             <head>
@@ -97,131 +111,181 @@ function generateEmail({
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Riviera Stays - Property Inquiry</title>
                 <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap');
+                    
                     body, table, td, div, p, a {
                         -webkit-text-size-adjust: 100%;
                         -ms-text-size-adjust: 100%;
                         margin: 0;
                         padding: 0;
-                        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-                        line-height: 1.47059;
-                        letter-spacing: -0.022em;
-                        text-align: center;
+                        font-family: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                        line-height: 1.5;
+                        color: #333;
+                    }
+
+                    h1, h2, h3, h4, h5, h6 {
+                        font-family: 'Playfair Display', serif;
+                        font-weight: 500;
+                        color: #1a1a1a;
                     }
 
                     .email-wrapper {
                         width: 100%;
-                        max-width: 680px;
+                        max-width: 650px;
                         margin: 0 auto;
                         background-color: #ffffff;
                     }
 
                     .header {
-                        background-color: #131313;
-                        padding: 48px 0;
+                        background-color: #1a1a1a;
+                        padding: 40px 0;
                         text-align: center;
                         position: relative;
-                        border-bottom: 2px solid #1a1a1a;
+                    }
+
+                    .logo {
+                        margin-bottom: 15px;
+                    }
+
+                    .header-content {
+                        color: #ffffff;
                     }
 
                     .content {
-                        padding: 48px 32px;
+                        padding: 40px 30px;
                         background-color: #ffffff;
                     }
 
-                    .section {
-                        margin-bottom: 48px;
-                        padding: 40px;
-                        background: #ffffff;
-                        border-radius: 12px;
-                        box-shadow: 0 2px 40px rgba(0, 0, 0, 0.05);
+                    .intro {
+                        margin-bottom: 30px;
+                        text-align: center;
                     }
 
-                    .section:hover {
-                        box-shadow: 0 4px 50px rgba(0, 0, 0, 0.08);
-                        transition: all 0.4s ease;
+                    .info-grid {
+                        display: grid;
+                        grid-template-columns: 1fr;
+                        gap: 20px;
+                        margin-bottom: 30px;
+                    }
+
+                    .info-card {
+                        background: #f9f9f9;
+                        border-radius: 8px;
+                        padding: 25px;
+                        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.04);
+                        border-left: 4px solid #1a1a1a;
+                    }
+
+                    .info-card h3 {
+                        margin: 0 0 15px 0;
+                        font-size: 18px;
+                        color: #1a1a1a;
+                    }
+
+                    .info-card p {
+                        margin: 0;
+                        font-size: 16px;
+                        color: #333;
+                    }
+
+                    .primary-info {
+                        border-color: #1a1a1a;
+                    }
+
+                    .travel-info {
+                        border-color: #5e81ac;
+                    }
+
+                    .property-info {
+                        border-color: #88c0d0;
+                    }
+
+                    .message-info {
+                        border-color: #a3be8c;
+                    }
+
+                    .date-display {
+                        background-color: #f0f0f0;
+                        border-radius: 6px;
+                        padding: 12px;
+                        display: inline-block;
+                        font-size: 15px;
+                        margin-top: 4px;
+                    }
+
+                    .date-label {
+                        font-weight: 600;
+                        display: block;
+                        margin-bottom: 5px;
+                        color: #555;
+                    }
+
+                    .date-range {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                    }
+
+                    .action-button {
+                        display: inline-block;
+                        background-color: #1a1a1a;
+                        color: #ffffff;
+                        text-decoration: none;
+                        padding: 12px 25px;
+                        border-radius: 4px;
+                        font-weight: 500;
+                        margin-top: 25px;
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                        transition: background-color 0.3s ease;
+                    }
+
+                    .action-button:hover {
+                        background-color: #333333;
                     }
 
                     .footer {
                         text-align: center;
-                        padding: 32px;
-                        background: #131313;
+                        padding: 30px;
+                        background: #1a1a1a;
                         color: #ffffff;
                     }
 
-                    h2 {
-                        color: #000000;
-                        font-size: 24px;
-                        font-weight: 400;
-                        letter-spacing: -0.003em;
-                        margin-bottom: 32px;
-                        display: inline-block;
-                        position: relative;
+                    .footer-links {
+                        margin: 15px 0;
                     }
 
-                    h2::after {
-                        content: '';
-                        position: absolute;
-                        bottom: -8px;
-                        left: 50%;
-                        transform: translateX(-50%);
-                        width: 40px;
-                        height: 2px;
-                        background: #474747;
+                    .footer-links a {
+                        color: #ffffff;
+                        margin: 0 10px;
+                        text-decoration: none;
+                        opacity: 0.8;
+                    }
+
+                    .footer-links a:hover {
+                        opacity: 1;
+                    }
+
+                    .footer-text {
+                        font-size: 13px;
                         opacity: 0.7;
+                        margin-top: 15px;
                     }
 
-                    .subtitle {
-                        color: #ffffff;
-                        font-size: 20px;
-                        font-weight: 400;
-                        opacity: 0.9;
+                    .message-text {
+                        white-space: pre-line;
+                        line-height: 1.6;
                     }
 
-                    .info-label {
-                        color: #000000;
-                        font-size: 12px;
-                        font-weight: 500;
-                        letter-spacing: 0.03em;
-                        text-transform: uppercase;
-                        margin-bottom: 8px;
-                        opacity: 0.5;
-                    }
-
-                    .info-value {
-                        color: #000000;
-                        font-size: 17px;
-                        margin-bottom: 32px;
-                        word-break: break-word;
-                        font-weight: 400;
-                        padding: 20px;
-                        background: #fafafa;
-                        border-radius: 8px;
-                        max-width: 400px;
-                        margin-left: auto;
-                        margin-right: auto;
-                        border: 1px solid rgba(0, 0, 0, 0.03);
-                    }
-
-                    .info-value:last-child {
-                        margin-bottom: 0;
-                    }
-
-                    @media screen and (max-width: 680px) {
+                    @media screen and (max-width: 650px) {
                         .content {
-                            padding: 32px 16px;
+                            padding: 30px 20px;
                         }
                         
-                        .section {
-                            padding: 24px;
-                            margin-bottom: 32px;
-                        }
-
-                        h2 {
-                            font-size: 22px;
-                        }
-                        
-                        .info-value {
-                            max-width: 100%;
+                        .date-range {
+                            flex-direction: column;
+                            align-items: flex-start;
                         }
                     }
                 </style>
@@ -229,55 +293,86 @@ function generateEmail({
             <body>
                 <div class="email-wrapper">
                     <div class="header">
-                        <div class="subtitle" style="font-size: 32px; font-weight: 300; letter-spacing: -0.02em; color: #ffffff;">New Property Inquiry</div>
-                        <div style="font-size: 18px; margin-top: 12px; opacity: 0.8; font-weight: 300; color: #ffffff;">Someone is interested in Riviera Stays properties</div>
+                        <div class="logo">
+                            <img src="https://riviera-stays.com/logo-white.png" alt="Riviera Stays" width="180" style="max-width: 100%;">
+                        </div>
+                        <div class="header-content">
+                            <h1 style="color: #ffffff; font-size: 28px; margin: 0; font-weight: 400;">New Property Inquiry</h1>
+                            <p style="color: #eeeeee; margin-top: 10px; font-size: 16px; opacity: 0.9;">A potential client is interested in Riviera Stays properties</p>
+                        </div>
                     </div>
 
                     <div class="content">
-                        <div class="section">
-                            <h2>Contact Information</h2>
-                            
-                            <div class="info-label">Name</div>
-                            <div class="info-value">${name}</div>
+                        <div class="intro">
+                            <h2 style="font-size: 24px; margin-bottom: 15px;">Customer Inquiry Details</h2>
+                            <p style="color: #555; font-size: 16px;">Below you'll find the complete details of the inquiry submitted via the Riviera Stays website.</p>
+                        </div>
 
-                            <div class="info-label">Email</div>
-                            <div class="info-value">${email}</div>
-                            
-                            ${phone ? `
-                            <div class="info-label">Phone</div>
-                            <div class="info-value">${phone}</div>
+                        <div class="info-grid">
+                            <div class="info-card primary-info">
+                                <h3>Contact Information</h3>
+                                <p><strong>Name:</strong> ${name}</p>
+                                <p><strong>Email:</strong> <a href="mailto:${email}" style="color: #1a1a1a; text-decoration: underline;">${email}</a></p>
+                                ${phone ? `<p><strong>Phone:</strong> <a href="tel:${phone}" style="color: #1a1a1a; text-decoration: underline;">${phone}</a></p>` : ''}
+                            </div>
+
+                            ${(checkIn || checkOut || guests) ? `
+                            <div class="info-card travel-info">
+                                <h3>Travel Details</h3>
+                                ${guests ? `<p><strong>Number of Guests:</strong> ${guests}</p>` : ''}
+                                
+                                ${(checkIn || checkOut) ? `
+                                <div class="date-range" style="margin-top: 15px;">
+                                    ${checkIn ? `
+                                    <div>
+                                        <span class="date-label">Check-in Date</span>
+                                        <div class="date-display">${formattedCheckIn}</div>
+                                    </div>
+                                    ` : ''}
+                                    
+                                    ${checkOut ? `
+                                    <div>
+                                        <span class="date-label">Check-out Date</span>
+                                        <div class="date-display">${formattedCheckOut}</div>
+                                    </div>
+                                    ` : ''}
+                                </div>
+                                ` : ''}
+                            </div>
                             ` : ''}
-                            
+
                             ${propertyInterest ? `
-                            <div class="info-label">Property Interest</div>
-                            <div class="info-value">${propertyInterest}</div>
+                            <div class="info-card property-info">
+                                <h3>Property Interest</h3>
+                                <p>${propertyInterest}</p>
+                            </div>
                             ` : ''}
-                            
-                            ${guests ? `
-                            <div class="info-label">Number of Guests</div>
-                            <div class="info-value">${guests}</div>
-                            ` : ''}
-                            
-                            ${checkIn ? `
-                            <div class="info-label">Check-in Date</div>
-                            <div class="info-value">${checkIn}</div>
-                            ` : ''}
-                            
-                            ${checkOut ? `
-                            <div class="info-label">Check-out Date</div>
-                            <div class="info-value">${checkOut}</div>
-                            ` : ''}
-                            
+
                             ${message ? `
-                            <div class="info-label">Additional Details</div>
-                            <div class="info-value">${message}</div>
+                            <div class="info-card message-info">
+                                <h3>Additional Requirements</h3>
+                                <p class="message-text">${message}</p>
+                            </div>
                             ` : ''}
-                        </div>                        
+                        </div>
+
+                        <div style="text-align: center; margin-top: 30px;">
+                            <p style="margin-bottom: 20px; color: #555;">Reply to this customer by clicking the button below:</p>
+                            <a href="mailto:${email}?subject=Re: Your Riviera Stays Inquiry&body=Dear ${name},%0D%0A%0D%0AThank you for your interest in Riviera Stays properties.%0D%0A%0D%0A" class="action-button">Reply to Customer</a>
+                        </div>
                     </div>
 
                     <div class="footer">
-                        <div style="font-weight: 300;">© ${new Date().getFullYear()} Riviera Stays. All rights reserved.</div>
-                        <div style="margin-top: 8px; font-size: 12px; opacity: 0.6;">This email contains confidential information.</div>
+                        <div style="font-weight: 300; font-size: 15px;">© ${new Date().getFullYear()} Riviera Stays</div>
+                        
+                        <div class="footer-links">
+                            <a href="https://riviera-stays.com">Website</a>
+                            <a href="mailto:info@riviera-stays.com">Email</a>
+                            <a href="tel:+377643917618">+377 643 917 618</a>
+                        </div>
+                        
+                        <div class="footer-text">7 avenue des Papalins, 98000 Monaco</div>
+                        <div class="footer-text">This email contains confidential information.</div>
                     </div>
                 </div>
             </body>
