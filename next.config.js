@@ -2,8 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // Enable static exports for the sitemap
-  output: 'export',
   // Configure sitemap generation
   async rewrites() {
     return [

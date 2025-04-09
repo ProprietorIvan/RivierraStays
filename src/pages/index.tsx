@@ -11,13 +11,13 @@ import {
   Compass,
   Wine,
   Utensils,
-  Ship,
   Calendar,
   Award,
   Shield,
   Coffee,
-  Anchor,
-  ChevronDown,
+  Home as HomeIcon,
+  Building,
+  Key,
 } from "lucide-react";
 import Head from "next/head";
 import Image from "next/image";
@@ -30,92 +30,73 @@ const Home = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Riviera Yachts",
-    description:
-      "Luxury yacht charter services in Monaco and the French Riviera",
-    url: "https://rivierayachts.com",
-    logo: "https://rivierayachts.com/logo.png",
+    name: "Riviera Stays",
+    description: "Luxury short-term rentals in Monaco and the French Riviera",
+    url: "https://riviera-stays.com",
+    logo: "https://riviera-stays.com/logo.png",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Monaco",
       addressCountry: "MC",
     },
     sameAs: [
-      "https://www.facebook.com/rivierayachts",
-      "https://www.instagram.com/rivierayachts",
-      "https://twitter.com/rivierayachts",
+      "https://www.facebook.com/rivierastays",
+      "https://www.instagram.com/rivierastays",
+      "https://twitter.com/rivierastays",
     ],
     offers: {
       "@type": "Offer",
-      description: "Luxury yacht charters in the Mediterranean",
-      areaServed: "Mediterranean Sea",
+      description: "Luxury short-term rentals in Monaco and the French Riviera",
+      areaServed: "Monaco and French Riviera",
     },
   };
 
-  const featuredYachts = [
+  const featuredProperties = [
     {
-      name: "CHRISTINA O",
-      image: "/photos/CHRISTINAO/6691a5df8ef063ef7180c36a_unnamed-4.jpg",
-      guests: 34,
-      cabins: 18,
-      description:
-        "An iconic superyacht with a rich history, offering unmatched luxury and comfort for the most discerning charterers.",
-    },
-    {
-      name: "ST DAVID",
-      image:
-        "/photos/StDavid/66929739be99ed26097803c9_DSC_8798.jpg.pagespeed.ce_.8zwqRklk0t-2-2048x1365-p-1600.jpg",
-      guests: 12,
-      cabins: 6,
-      description:
-        "A masterpiece of Italian craftsmanship with elegant exterior lines and an opulent Andrew Winch-designed interior.",
-    },
-    {
-      name: "MOONRAKER",
-      image:
-        "/photos/moon/1189c760-0394-11ef-86f6-1d78f30f3411-9081045_20231009135149856_1_XLARGE.webp",
+      name: "MONACO HARBOUR - LUXURY FLAT",
+      image: "/photos/homepage/apartment2/004-photopetit-140323-1679310750.jpg",
       guests: 10,
-      cabins: 5,
+      bedrooms: 5,
       description:
-        "A sleek and sporty superyacht with impressive speed and striking design, offering the perfect blend of performance and luxury.",
-    },
-  ];
-
-  const dayCharters = [
-    {
-      name: "SHADOW 900",
-      image: "/photos/Shadow900/000001.jpg",
-      guests: 12,
-      cabins: 1,
-      description:
-        "The SHADOW 900 by Fjord is a statement of modern luxury and performance. Perfect for stylish day cruising along the Mediterranean coast.",
+        "Located on the port of Monaco in the &apos;Panorama&apos; residence with panoramic views of the sea, port, and Formula 1 Grand Prix.",
+      location: "Monaco Port",
     },
     {
-      name: "VanDutch 40",
-      image: "/photos/VanDutch40 /000001.jpeg",
-      guests: 10,
-      cabins: 1,
+      name: "BEVERLY PALACE - RENOVATED FAMILY FLAT",
+      image: "/photos/homepage/apartment1/terrasse-1733152883.jpg",
+      guests: 6,
+      bedrooms: 3,
       description:
-        "The VanDutch 40 is a masterpiece of minimalist design with sleek lines and exceptional performance. Ideal for sophisticated day cruising.",
+        "Located in the Moneghetti residential area, this tastefully renovated family flat offers beautiful views over the town and the Rock.",
+      location: "Moneghetti, Monaco",
+    },
+    {
+      name: "FONTVIEILLE - CONTEMPORARY FLAT, SEA VIEW",
+      image: "/photos/homepage/apartment3/chambre-2-1734108955.jpg",
+      guests: 2,
+      bedrooms: 1,
+      description:
+        "This contemporary, fully-renovated apartment in the &apos;EDEN STAR&apos; residence boasts superb views of the sea and the Rock.",
+      location: "Fontvieille, Monaco",
     },
   ];
 
   const testimonials = [
     {
       quote:
-        "Riviera Yachts provided an exceptional experience from start to finish. Their attention to detail and professional crew made our Mediterranean voyage truly unforgettable.",
+        "Riviera Stays provided an exceptional experience from start to finish. Their attention to detail and professional service made our stay in Monaco truly unforgettable.",
       author: "James Harrison",
-      title: "Luxury Yacht Owner",
+      title: "Luxury Property Renter",
     },
     {
       quote:
-        "The yacht we chartered exceeded all expectations. From the immaculate condition to the five-star service, every moment was pure luxury. Will definitely book again!",
+        "The apartment we rented exceeded all expectations. From the immaculate condition to the five-star service, every moment was pure luxury. Will definitely book again!",
       author: "Sofia Laurent",
-      title: "Charter Client",
+      title: "Repeat Client",
     },
     {
       quote:
-        "Organized a corporate retreat through Riviera Yachts. The team's expertise in planning and execution made our event a tremendous success. Highly recommended!",
+        "Organized a corporate retreat through Riviera Stays. The team's expertise in planning and execution made our event a tremendous success. Highly recommended!",
       author: "Alessandro Romano",
       title: "Corporate Event Planner",
     },
@@ -123,79 +104,79 @@ const Home = () => {
 
   const faqItems = [
     {
-      question: "What is included in a luxury yacht charter?",
+      question: "What is included in a luxury rental?",
       answer:
-        "Our luxury yacht charters typically include the yacht, professional crew, insurance, and all onboard amenities. Additional costs may include fuel, food and beverages, dockage fees, and any special requests.",
+        "Our luxury rentals typically include premium accommodations, high-end amenities, concierge services, and welcome packages. Additional services such as daily cleaning, private chef, and chauffeur can be arranged upon request.",
     },
     {
-      question: "How far in advance should I book my charter?",
+      question: "How far in advance should I book my stay?",
       answer:
-        "For peak season (July-August), we recommend booking 6-12 months in advance. For other periods, 3-6 months is usually sufficient to secure your preferred yacht and dates.",
+        "For peak season (May-August, especially during Monaco Grand Prix and Cannes Film Festival), we recommend booking 6-12 months in advance. For other periods, 3-6 months is usually sufficient to secure your preferred property and dates.",
     },
     {
-      question: "What are the popular destinations from Monaco?",
+      question: "What are the popular areas to stay in Monaco?",
       answer:
-        "Popular destinations include the French Riviera (Saint-Tropez, Cannes, Nice), Italian Riviera (Portofino, Cinque Terre), Corsica, Sardinia, and the Balearic Islands (Ibiza, Mallorca).",
+        "Popular areas include Monte Carlo (known for luxury and the famous casino), Larvotto (with beautiful beaches), Fontvieille (modern and quiet), and La Condamine (vibrant with markets and the port area).",
     },
     {
-      question: "Can you accommodate special dietary requirements?",
+      question: "Can you accommodate special requests?",
       answer:
-        "Absolutely. Our chefs are experienced in catering to all dietary requirements, from allergies and intolerances to preferences such as vegan, vegetarian, kosher, or halal meals.",
+        "Absolutely. Our concierge service can arrange everything from private chef services, grocery delivery, special dietary requirements, to childcare services and exclusive experiences tailored to your preferences.",
     },
     {
-      question: "What is the typical charter duration?",
+      question: "What is the typical rental duration?",
       answer:
-        "Most of our charters run for 7 days, but we offer flexibility from 3-day weekend charters to extended voyages lasting several weeks or even months.",
+        "Our minimum stay is typically 3 nights, but we recommend at least 7 days to fully experience Monaco and the French Riviera. We also offer monthly rentals for those looking for extended stays.",
     },
     {
-      question: "What activities are available during the charter?",
+      question: "What activities and experiences can you arrange?",
       answer:
-        "Our yachts are equipped with a variety of water toys and equipment, including jet skis, paddleboards, snorkeling gear, and more. We can also arrange onshore activities, from restaurant reservations to exclusive excursions.",
+        "We can arrange a wide variety of experiences, from yacht charters and helicopter tours to restaurant reservations at exclusive venues, tickets to events like the Grand Prix, private guided tours, and wellness services in the comfort of your rental property.",
     },
   ];
 
   return (
     <>
       <Head>
-        <title>Luxury Yacht Charters in Monaco | Riviera Yachts</title>
+        <title>Luxury Short-Term Rentals in Monaco | Riviera Stays</title>
         <meta
           name="description"
-          content="Experience the ultimate in luxury yacht charters with Riviera Yachts. Discover the Mediterranean's most exclusive destinations aboard our prestigious fleet."
+          content="Experience the ultimate in luxury short-term rentals with Riviera Stays. Discover Monaco and the French Riviera's most exclusive properties for your perfect stay."
         />
         <meta
           name="keywords"
-          content="luxury yacht charter, Monaco yacht rental, Mediterranean yacht charter, private yacht hire, luxury boat rental"
+          content="luxury rentals, Monaco apartments, French Riviera villas, short-term rental, premium accommodation, vacation rental"
         />
 
         {/* Open Graph tags */}
         <meta
           property="og:title"
-          content="Luxury Yacht Charters in Monaco | Riviera Yachts"
+          content="Luxury Short-Term Rentals in Monaco | Riviera Stays"
         />
         <meta
           property="og:description"
-          content="Experience the ultimate in luxury yacht charters with Riviera Yachts. Discover the Mediterranean's most exclusive destinations."
+          content="Experience the ultimate in luxury short-term rentals with Riviera Stays. Discover Monaco and the French Riviera's most exclusive destinations."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://rivierayachts.com" />
+        <meta property="og:url" content="https://riviera-stays.com" />
         <meta
           property="og:image"
-          content="https://rivierayachts.com/og-image.jpg"
+          content="https://riviera-stays.com/og-image.jpg"
         />
 
         {/* Twitter Card tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="Luxury Yacht Charters in Monaco | Riviera Yachts"
+          content="Luxury Short-Term Rentals in Monaco | Riviera Stays"
         />
         <meta
           name="twitter:description"
-          content="Experience the ultimate in luxury yacht charters with Riviera Yachts."
+          content="Experience the ultimate in luxury short-term rentals with Riviera Stays."
         />
         <meta
           name="twitter:image"
-          content="https://rivierayachts.com/twitter-image.jpg"
+          content="https://riviera-stays.com/twitter-image.jpg"
         />
 
         {/* Structured data */}
@@ -210,36 +191,34 @@ const Home = () => {
 
         {/* Hero Section */}
         <section className="relative h-screen flex items-center">
-          {/* Background Video with overlay */}
+          {/* Background Image with overlay (replacing video) */}
           <div className="absolute inset-0 z-0">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="object-cover w-full h-full"
-            >
-              <source src="/photos/homepage/background.mp4" type="video/mp4" />
-            </video>
+            <Image
+              src="/photos/homepage/apartment2/004-photopetit-140323-1679310750.jpg"
+              alt="Luxury property background"
+              fill
+              className="object-cover"
+              priority
+            />
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30"></div>
           </div>
 
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="max-w-3xl">
               <h1 className="text-5xl md:text-7xl font-light mb-6 tracking-tight text-white leading-tight">
-                Experience the Ultimate in Luxury Yacht Charters
+                Experience the Ultimate in Luxury Stays
               </h1>
               <p className="text-xl text-white/90 max-w-2xl mb-10 font-light leading-relaxed">
-                Discover the Mediterranean&apos;s most exclusive destinations
-                aboard our prestigious fleet of luxury yachts.
+                Discover Monaco and the French Riviera&apos;s most exclusive
+                properties for your perfect short-term rental experience.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
-                  href="/fleet"
+                  href="/properties"
                   className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-md hover:bg-gray-100 transition-colors text-base font-medium"
                 >
-                  <span>Explore Our Fleet</span>
+                  <span>Explore Our Properties</span>
                 </Link>
                 <Link
                   href="/contact"
@@ -252,574 +231,213 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Key Features Section */}
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="flex flex-col items-center text-center p-6 rounded-lg hover:shadow-lg transition-shadow">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-                  <Compass className="w-8 h-8 text-gray-900" />
-                </div>
-                <h3 className="text-xl font-medium mb-3">
-                  Exclusive Destinations
-                </h3>
-                <p className="text-gray-600 font-light">
-                  Experience the finest ports and hidden gems of the
-                  Mediterranean.
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center text-center p-6 rounded-lg hover:shadow-lg transition-shadow">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-                  <Users className="w-8 h-8 text-gray-900" />
-                </div>
-                <h3 className="text-xl font-medium mb-3">Professional Crew</h3>
-                <p className="text-gray-600 font-light">
-                  Expert captains and attentive staff at your service.
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center text-center p-6 rounded-lg hover:shadow-lg transition-shadow">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-                  <Star className="w-8 h-8 text-gray-900" />
-                </div>
-                <h3 className="text-xl font-medium mb-3">Luxury Experience</h3>
-                <p className="text-gray-600 font-light">
-                  Unparalleled comfort and service on every journey.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Experience Excellence Section */}
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-light mb-4 tracking-tight">
-                Experience Excellence
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light">
-                Discover the epitome of luxury yachting with our meticulously
-                curated experiences
-              </p>
-            </div>
-
-            {/* Luxury Section */}
-            <div className="grid md:grid-cols-2 gap-12 items-center mb-24">
-              <div className="relative h-[500px] rounded-lg overflow-hidden">
-                <Image
-                  src="/photos/CHRISTINAO/66919f11c6cc2a1306e76a7b_CHRISTINA-O-aerial-Aft-2022-p-1600.jpg"
-                  alt="Luxury Suite"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <div>
-                <h3 className="text-2xl font-light mb-2 text-gray-500">
-                  Step into a world of opulence
-                </h3>
-                <h4 className="text-3xl font-medium mb-6">Unmatched Luxury</h4>
-                <p className="text-gray-600 mb-8 text-lg font-light">
-                  Experience unparalleled luxury with master suites featuring
-                  panoramic views, private balconies, and state-of-the-art
-                  entertainment systems. Every detail is crafted for your
-                  comfort.
-                </p>
-
-                <div className="grid grid-cols-2 gap-6 mb-8">
-                  <div className="flex flex-col">
-                    <span className="text-4xl font-light text-gray-900 mb-1">
-                      50m+
-                    </span>
-                    <span className="text-sm text-gray-500 uppercase tracking-wider">
-                      Yacht Length
-                    </span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-4xl font-light text-gray-900 mb-1">
-                      5
-                    </span>
-                    <span className="text-sm text-gray-500 uppercase tracking-wider">
-                      Master Suites
-                    </span>
-                  </div>
-                </div>
-
-                <Link
-                  href="/fleet"
-                  className="inline-flex items-center gap-2 text-gray-900 font-medium hover:text-gray-700 transition-colors"
-                >
-                  <span>Learn More</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-
-            {/* Dining Section */}
-            <div className="grid md:grid-cols-2 gap-12 items-center mb-24">
-              <div className="order-2 md:order-1">
-                <h3 className="text-2xl font-light mb-2 text-gray-500">
-                  Culinary excellence at sea
-                </h3>
-                <h4 className="text-3xl font-medium mb-6">Exquisite Dining</h4>
-                <p className="text-gray-600 mb-8 text-lg font-light">
-                  Our world-class chefs create personalized menus featuring the
-                  finest ingredients, paired with premium wines from our curated
-                  cellar. From intimate dinners to grand celebrations.
-                </p>
-
-                <div className="grid grid-cols-2 gap-6 mb-8">
-                  <div className="flex flex-col items-start">
-                    <span className="text-4xl font-light text-gray-900 mb-1">
-                      24/7
-                    </span>
-                    <span className="text-sm text-gray-500 uppercase tracking-wider">
-                      Private Chef
-                    </span>
-                  </div>
-                  <div className="flex flex-col items-start">
-                    <span className="text-4xl font-light text-gray-900 mb-1">
-                      350+
-                    </span>
-                    <span className="text-sm text-gray-500 uppercase tracking-wider">
-                      Wine Selection
-                    </span>
-                  </div>
-                </div>
-
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 text-gray-900 font-medium hover:text-gray-700 transition-colors"
-                >
-                  <span>Learn More</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-              <div className="relative h-[500px] rounded-lg overflow-hidden order-1 md:order-2">
-                <Image
-                  src="/photos/CHRISTINAO/6691a5a37796c8b5d1049025_christina-o-bbq-2018.jpg"
-                  alt="Fine Dining"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-            </div>
-
-            {/* Destinations Section */}
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="relative h-[500px] rounded-lg overflow-hidden">
-                <Image
-                  src="/photos/CHRISTINAO/6691a5df8ef063ef7180c36a_unnamed-4.jpg"
-                  alt="Elite Destinations"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <div>
-                <h3 className="text-2xl font-light mb-2 text-gray-500">
-                  Discover hidden Mediterranean gems
-                </h3>
-                <h4 className="text-3xl font-medium mb-6">
-                  Elite Destinations
-                </h4>
-                <p className="text-gray-600 mb-8 text-lg font-light">
-                  Navigate the most prestigious ports and secluded coves of the
-                  Mediterranean. From Monaco&apos;s glamour to Sardinia&apos;s
-                  pristine beaches, every destination is extraordinary.
-                </p>
-
-                <div className="grid grid-cols-2 gap-6 mb-8">
-                  <div className="flex flex-col items-start">
-                    <span className="text-4xl font-light text-gray-900 mb-1">
-                      15+
-                    </span>
-                    <span className="text-sm text-gray-500 uppercase tracking-wider">
-                      Destinations
-                    </span>
-                  </div>
-                  <div className="flex flex-col items-start">
-                    <span className="text-4xl font-light text-gray-900 mb-1">
-                      100%
-                    </span>
-                    <span className="text-sm text-gray-500 uppercase tracking-wider">
-                      Exclusive Access
-                    </span>
-                  </div>
-                </div>
-
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 text-gray-900 font-medium hover:text-gray-700 transition-colors"
-                >
-                  <span>Learn More</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Featured Yachts Section */}
+        {/* Featured Properties Section */}
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-light mb-4 tracking-tight">
-                View Our Fleet
+              <h2 className="text-5xl font-light mb-6 tracking-tight">
+                Featured Properties
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 mt-8 mb-12">
-                <div className="flex flex-col items-center">
-                  <span className="text-4xl font-light text-gray-900 mb-1">
-                    15+
-                  </span>
-                  <span className="text-sm text-gray-500 uppercase tracking-wider">
-                    Luxury Yachts
-                  </span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <span className="text-4xl font-light text-gray-900 mb-1">
-                    100%
-                  </span>
-                  <span className="text-sm text-gray-500 uppercase tracking-wider">
-                    Satisfaction
-                  </span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <span className="text-4xl font-light text-gray-900 mb-1">
-                    24/7
-                  </span>
-                  <span className="text-sm text-gray-500 uppercase tracking-wider">
-                    Concierge
-                  </span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <span className="text-4xl font-light text-gray-900 mb-1">
-                    10+
-                  </span>
-                  <span className="text-sm text-gray-500 uppercase tracking-wider">
-                    Destinations
-                  </span>
-                </div>
-              </div>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Discover our collection of handpicked luxury properties in
+                Monaco and the French Riviera, offering unparalleled comfort and
+                style for your stay.
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {featuredYachts.map((yacht, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              {featuredProperties.map((property, index) => (
                 <div
                   key={index}
-                  className="bg-white overflow-hidden rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-all group"
+                  className="bg-white rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-gray-100"
                 >
-                  <Link href="/fleet" className="block">
-                    <div className="relative h-64 overflow-hidden">
-                      <Image
-                        src={yacht.image}
-                        alt={yacht.name}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        loading="lazy"
-                      />
+                  <div className="relative h-80">
+                    <Image
+                      src={property.image}
+                      alt={property.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-8">
+                    <div className="flex items-center text-sm text-gray-500 mb-3">
+                      <MapPin size={16} className="mr-2" />
+                      <span>{property.location}</span>
                     </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-light mb-2">{yacht.name}</h3>
-                      <div className="flex items-center gap-4 mb-4 text-sm text-gray-600">
-                        <div className="flex items-center gap-1.5">
-                          <Users className="w-4 h-4" />
-                          <span>{yacht.guests} Guests</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <Bed className="w-4 h-4" />
-                          <span>{yacht.cabins} Cabins</span>
-                        </div>
+                    <h3 className="text-2xl font-medium mb-4">
+                      {property.name}
+                    </h3>
+                    <p className="text-gray-600 mb-6 text-lg">
+                      {property.description}
+                    </p>
+                    <div className="flex flex-wrap gap-6 mb-6">
+                      <div className="flex items-center text-gray-700">
+                        <Users size={20} className="mr-2" />
+                        <span className="text-lg">
+                          {property.guests} guests
+                        </span>
                       </div>
-                      <p className="text-gray-600 font-light text-sm mb-4">
-                        {yacht.description}
-                      </p>
-                      <div className="flex items-center text-gray-900 font-medium text-sm">
-                        <span>View Details</span>
-                        <ChevronRight className="w-4 h-4 ml-1" />
+                      <div className="flex items-center text-gray-700">
+                        <Bed size={20} className="mr-2" />
+                        <span className="text-lg">
+                          {property.bedrooms} bedrooms
+                        </span>
                       </div>
                     </div>
-                  </Link>
+                    <Link
+                      href="/properties"
+                      className="inline-flex items-center text-gray-900 hover:text-gray-700 text-lg font-medium"
+                    >
+                      <span>View Details</span>
+                      <ChevronRight size={20} className="ml-2" />
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>
 
-            <div className="mt-12 text-center">
+            <div className="text-center mt-16">
               <Link
-                href="/fleet"
-                className="inline-flex items-center justify-center bg-gray-900 text-white px-8 py-4 rounded-md hover:bg-gray-800 transition-colors text-base font-medium"
+                href="/properties"
+                className="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-md hover:bg-gray-800 transition-colors text-base font-medium"
               >
-                <span>View All Yachts</span>
-                <ArrowRight className="w-4 h-4 ml-2" />
+                <span>View All Properties</span>
+                <ArrowRight size={18} />
               </Link>
             </div>
           </div>
         </section>
 
-        {/* Day Charter Boats Section */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Why Choose Us Section */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-light mb-4 tracking-tight">
-                Day Charter Experiences
+                Why Choose Riviera Stays
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light">
-                Explore the Mediterranean coast with our premium day charter
-                vessels
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                We offer a personalized approach to luxury short-term rentals,
+                ensuring your stay in Monaco and the French Riviera is nothing
+                short of exceptional.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              {dayCharters.map((yacht, index) => (
-                <div
-                  key={index}
-                  className="bg-white overflow-hidden rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-all group"
-                >
-                  <Link href="/fleet" className="block">
-                    <div className="relative h-80 overflow-hidden">
-                      <Image
-                        src={yacht.image}
-                        alt={yacht.name}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="p-8">
-                      <h3 className="text-2xl font-light mb-3">{yacht.name}</h3>
-                      <div className="flex items-center gap-6 mb-4 text-sm text-gray-600">
-                        <div className="flex items-center gap-2">
-                          <Users className="w-4 h-4" />
-                          <span>{yacht.guests} Guests</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Ship className="w-4 h-4" />
-                          <span>Day Charter</span>
-                        </div>
-                      </div>
-                      <p className="text-gray-600 font-light text-base mb-6">
-                        {yacht.description}
-                      </p>
-                      <div className="flex items-center text-gray-900 font-medium">
-                        <span>View Details</span>
-                        <ChevronRight className="w-4 h-4 ml-1" />
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-12 text-center">
-              <Link
-                href="/fleet"
-                className="inline-flex items-center justify-center bg-gray-900 text-white px-8 py-4 rounded-md hover:bg-gray-800 transition-colors text-base font-medium"
-              >
-                <span>Discover Our Day Charters</span>
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Journey Process Section */}
-        <section className="py-24 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-light mb-4 tracking-tight">
-                Your Journey Begins Here
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light">
-                Experience a seamless process from initial consultation to your
-                unforgettable voyage
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-              {/* Step 1 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               <div className="bg-white p-8 rounded-lg shadow-sm">
-                <div className="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center text-white font-bold text-xl mb-6">
-                  1
+                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-6">
+                  <Award className="text-gray-900" size={24} />
                 </div>
-                <h3 className="text-lg font-bold mb-2 uppercase tracking-wider text-gray-900">
-                  Planning
+                <h3 className="text-xl font-medium mb-3">
+                  Handpicked Properties
                 </h3>
-                <h4 className="text-xl font-medium mb-4 text-gray-800">
-                  Initial Consultation
-                </h4>
-                <p className="text-gray-600 mb-6 font-light">
-                  Begin your journey with a personalized consultation
+                <p className="text-gray-600">
+                  Our properties are carefully selected to meet the highest
+                  standards of luxury, comfort, and location, ensuring an
+                  exceptional experience.
                 </p>
-                <ul className="text-gray-600 space-y-2 font-light">
-                  <li className="flex items-start">
-                    <span className="text-gray-900 mr-2">•</span>
-                    Define your perfect yacht experience
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-900 mr-2">•</span>
-                    Select ideal dates and destinations
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-900 mr-2">•</span>
-                    Discuss special requirements
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-900 mr-2">•</span>
-                    Review preliminary budget
-                  </li>
-                </ul>
               </div>
 
-              {/* Step 2 */}
               <div className="bg-white p-8 rounded-lg shadow-sm">
-                <div className="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center text-white font-bold text-xl mb-6">
-                  2
+                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-6">
+                  <Shield className="text-gray-900" size={24} />
                 </div>
-                <h3 className="text-lg font-bold mb-2 uppercase tracking-wider text-gray-900">
-                  Selection
+                <h3 className="text-xl font-medium mb-3">
+                  Personalized Concierge
                 </h3>
-                <h4 className="text-xl font-medium mb-4 text-gray-800">
-                  Choose Your Yacht
-                </h4>
-                <p className="text-gray-600 mb-6 font-light">
-                  Find your perfect vessel from our elite fleet
+                <p className="text-gray-600">
+                  Our dedicated concierge team is available to handle all your
+                  requests, from restaurant reservations to organizing exclusive
+                  experiences.
                 </p>
-                <ul className="text-gray-600 space-y-2 font-light">
-                  <li className="flex items-start">
-                    <span className="text-gray-900 mr-2">•</span>
-                    Virtual yacht tours available
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-900 mr-2">•</span>
-                    Review crew profiles
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-900 mr-2">•</span>
-                    Explore yacht amenities
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-900 mr-2">•</span>
-                    Confirm availability
-                  </li>
-                </ul>
               </div>
 
-              {/* Step 3 */}
               <div className="bg-white p-8 rounded-lg shadow-sm">
-                <div className="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center text-white font-bold text-xl mb-6">
-                  3
+                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-6">
+                  <Key className="text-gray-900" size={24} />
                 </div>
-                <h3 className="text-lg font-bold mb-2 uppercase tracking-wider text-gray-900">
-                  Itinerary
+                <h3 className="text-xl font-medium mb-3">
+                  Seamless Experience
                 </h3>
-                <h4 className="text-xl font-medium mb-4 text-gray-800">
-                  Plan Your Route
-                </h4>
-                <p className="text-gray-600 mb-6 font-light">
-                  Craft your Mediterranean adventure
+                <p className="text-gray-600">
+                  From booking to check-out, we ensure a smooth and hassle-free
+                  experience, allowing you to focus on enjoying your time in the
+                  French Riviera.
                 </p>
-                <ul className="text-gray-600 space-y-2 font-light">
-                  <li className="flex items-start">
-                    <span className="text-gray-900 mr-2">•</span>
-                    Select dream destinations
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-900 mr-2">•</span>
-                    Plan port visits
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-900 mr-2">•</span>
-                    Arrange special activities
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-900 mr-2">•</span>
-                    Consider seasonal highlights
-                  </li>
-                </ul>
               </div>
 
-              {/* Step 4 */}
               <div className="bg-white p-8 rounded-lg shadow-sm">
-                <div className="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center text-white font-bold text-xl mb-6">
-                  4
+                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-6">
+                  <MapPin className="text-gray-900" size={24} />
                 </div>
-                <h3 className="text-lg font-bold mb-2 uppercase tracking-wider text-gray-900">
-                  Preferences
-                </h3>
-                <h4 className="text-xl font-medium mb-4 text-gray-800">
-                  Customize Experience
-                </h4>
-                <p className="text-gray-600 mb-6 font-light">
-                  Tailor every aspect to your desires
+                <h3 className="text-xl font-medium mb-3">Prime Locations</h3>
+                <p className="text-gray-600">
+                  Our properties are situated in the most desirable locations,
+                  offering easy access to the region&apos;s finest attractions,
+                  dining, and shopping.
                 </p>
-                <ul className="text-gray-600 space-y-2 font-light">
-                  <li className="flex items-start">
-                    <span className="text-gray-900 mr-2">•</span>
-                    Design your menu
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-900 mr-2">•</span>
-                    Select fine wines
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-900 mr-2">•</span>
-                    Choose entertainment options
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-900 mr-2">•</span>
-                    Plan special occasions
-                  </li>
-                </ul>
               </div>
-            </div>
 
-            <div className="text-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center bg-gray-900 text-white px-8 py-4 rounded-md hover:bg-gray-800 transition-colors text-base font-medium"
-              >
-                Start Your Journey
-              </Link>
+              <div className="bg-white p-8 rounded-lg shadow-sm">
+                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-6">
+                  <Calendar className="text-gray-900" size={24} />
+                </div>
+                <h3 className="text-xl font-medium mb-3">Flexible Stays</h3>
+                <p className="text-gray-600">
+                  Whether you need a short-term rental for a weekend getaway, a
+                  business trip, or an extended vacation, we have options to
+                  suit your schedule.
+                </p>
+              </div>
+
+              <div className="bg-white p-8 rounded-lg shadow-sm">
+                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-6">
+                  <MessageSquare className="text-gray-900" size={24} />
+                </div>
+                <h3 className="text-xl font-medium mb-3">
+                  Multilingual Support
+                </h3>
+                <p className="text-gray-600">
+                  Our team speaks multiple languages, ensuring clear
+                  communication and assistance for international clients
+                  throughout their stay.
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Testimonials Section */}
-        <section className="py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-20 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-light mb-4 tracking-tight">
-                Client Testimonials
+                What Our Clients Say
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light">
-                Discover why discerning clients trust Riviera Yachts for their
-                luxury maritime experiences
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Read about the experiences of our satisfied clients who have
+                enjoyed our luxury rental properties and services.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               {testimonials.map((testimonial, index) => (
-                <div key={index} className="bg-gray-50 p-8 rounded-lg">
-                  <div className="flex items-center mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-5 h-5 text-yellow-500 fill-current"
-                      />
-                    ))}
+                <div key={index} className="bg-gray-50 p-8 rounded-lg relative">
+                  <div className="mb-6">
+                    <div className="flex gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          size={20}
+                          className="fill-current text-yellow-400"
+                        />
+                      ))}
+                    </div>
                   </div>
-                  <p className="text-gray-700 italic mb-6 font-light">
-                    &quot;{testimonial.quote}&quot;
+                  <p className="text-gray-600 mb-6 italic">
+                    &ldquo;{testimonial.quote}&rdquo;
                   </p>
                   <div>
-                    <h4 className="text-lg font-medium">
-                      {testimonial.author}
-                    </h4>
+                    <p className="font-medium">{testimonial.author}</p>
                     <p className="text-gray-500 text-sm">{testimonial.title}</p>
                   </div>
                 </div>
@@ -828,73 +446,98 @@ const Home = () => {
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section className="py-24 bg-gray-50">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-light mb-4 tracking-tight">
-                Frequently Asked Questions
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light">
-                Learn more about our luxury charter experience
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              {faqItems.map((item, index) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-medium mb-3 text-gray-900">
-                    {item.question}
-                  </h3>
-                  <p className="text-gray-600 font-light">{item.answer}</p>
-                </div>
-              ))}
+        {/* Call to Action */}
+        <section className="py-20 bg-gray-900 text-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-4xl font-light mb-6 tracking-tight">
+              Ready to Experience Luxury Living?
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-10">
+              Contact us today to book your luxury short-term rental in Monaco
+              or the French Riviera. Our team is ready to help you find the
+              perfect property for your needs.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-md hover:bg-gray-100 transition-colors text-base font-medium"
+              >
+                <span>Contact Us</span>
+              </Link>
+              <Link
+                href="/properties"
+                className="inline-flex items-center justify-center gap-2 bg-transparent border border-white text-white px-8 py-4 rounded-md hover:bg-white/10 transition-colors text-base font-medium"
+              >
+                <span>Browse Properties</span>
+              </Link>
             </div>
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-20">
+        {/* FAQ Section */}
+        <section className="py-20 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-gray-900 rounded-lg overflow-hidden">
-              <div className="grid md:grid-cols-2">
-                <div className="p-12 lg:p-16 flex flex-col justify-center">
-                  <h2 className="text-3xl md:text-4xl font-light mb-6 text-white tracking-tight">
-                    Ready to Experience Luxury on the Water?
-                  </h2>
-                  <p className="text-xl text-white/90 mb-8 font-light">
-                    Contact our yacht specialists today to plan your perfect
-                    Mediterranean adventure.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <Link
-                      href="/contact"
-                      className="inline-flex items-center justify-center bg-white text-gray-900 px-8 py-4 rounded-md hover:bg-gray-100 transition-colors text-base font-medium"
-                    >
-                      <span>Request Information</span>
-                    </Link>
-                    <Link
-                      href="https://wa.me/+377643917618"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 bg-green-600 text-white px-8 py-4 rounded-md hover:bg-green-700 transition-colors text-base font-medium"
-                    >
-                      <MessageSquare className="w-4 h-4" />
-                      <span>WhatsApp</span>
-                    </Link>
-                  </div>
-                </div>
-                <div className="relative hidden md:block">
-                  <Image
-                    src="/photos/StDavid/6692969f15ca3040b3c6d3fd_Xanadu-Superyacht-Staircase.jpg"
-                    alt="Luxury yacht charter"
-                    fill
-                    className="object-cover"
-                    sizes="50vw"
-                  />
-                </div>
-              </div>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-light mb-4 tracking-tight">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Find answers to common questions about our luxury rental
+                properties and services.
+              </p>
             </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+              {faqItems.map((item, index) => (
+                <div key={index}>
+                  <h3 className="text-xl font-medium mb-3">{item.question}</h3>
+                  <p className="text-gray-600">{item.answer}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center mt-16">
+              <p className="text-gray-600 mb-6">
+                Have more questions? We&apos;re here to help.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-md hover:bg-gray-800 transition-colors text-base font-medium"
+              >
+                <span>Contact Us</span>
+                <ArrowRight size={18} />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Newsletter Section */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-4xl font-light mb-4 tracking-tight">
+              Stay Updated
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
+              Subscribe to our newsletter for exclusive offers, new property
+              listings, and insider tips on experiencing the best of Monaco and
+              the French Riviera.
+            </p>
+            <form className="max-w-md mx-auto">
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  className="flex-grow px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="bg-gray-900 text-white px-6 py-3 rounded-md hover:bg-gray-800 transition-colors"
+                >
+                  Subscribe
+                </button>
+              </div>
+            </form>
           </div>
         </section>
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import Navigation from "@/components/Navigation";
 import {
   MessageSquare,
-  Anchor,
+  Home,
   X,
   ChevronLeft,
   ChevronRight,
@@ -16,6 +16,9 @@ import {
   User,
   Calendar,
   Check,
+  Building,
+  Bath,
+  Maximize,
 } from "lucide-react";
 import Image from "next/image";
 import Head from "next/head";
@@ -27,221 +30,102 @@ interface Feature {
   description: string;
 }
 
-interface YachtFeature {
+interface PropertyFeature {
   id: string;
   name: string;
   images: string[];
   guests: number;
-  cabins: number;
-  crew: number;
+  bedrooms: number;
+  bathrooms: number;
   description: string;
   features: Feature[];
+  location: string;
+  sqm?: number;
 }
 
-interface YachtCategory {
+interface PropertyCategory {
   title: string;
   description: string;
-  yachts: YachtFeature[];
+  properties: PropertyFeature[];
 }
 
-const yachtCategories: YachtCategory[] = [
+const propertyCategories: PropertyCategory[] = [
   {
-    title: "Premium Superyachts",
-    description: "The pinnacle of luxury and prestigious yachting experience",
-    yachts: [
+    title: "Featured Properties",
+    description: "A glimpse of our exclusive property portfolio",
+    properties: [
       {
-        id: "christina-o",
-        name: "CHRISTINA O",
+        id: "monaco-harbour",
+        name: "MONACO HARBOUR - LUXURY FLAT",
         images: [
-          "/photos/CHRISTINAO/6691a5df8ef063ef7180c36a_unnamed-4.jpg",
-          "/photos/CHRISTINAO/6691a6155c66ae7bc0f1dba9_CHRISTINA-O-swimming-pool_credits_Stef_Bravin-2048x1363-p-1600.jpg",
-          "/photos/CHRISTINAO/6691a3c7d5168c08ee13180f_Christina-O_99_©_stef-bravin-2048x1363-p-1600.jpg",
-          "/photos/CHRISTINAO/6691a41ed3242b4bbec21d69_Compass-deck-3-2048x1363-p-1600.jpg",
-          "/photos/CHRISTINAO/6691a531f19b47a9646a7357_unnamed-15-2048x1363-p-1600.jpg",
-          "/photos/CHRISTINAO/6691a56a7796c8b5d1046d20_Spa-massage-room-1-2048x1363-p-1600.jpg",
-        ],
-        guests: 34,
-        cabins: 18,
-        crew: 38,
-        description:
-          "When does a yacht become more than a yacht? Christina O is very special. She has a history intertwined with the unique story of Aristotle Onassis, Maria Callas, Jacqueline Bouvier Kennedy (Jackie O), Sir Winston Churchill, JFK, and many of the most important people of the 20th Century.",
-        features: [
-          {
-            title: "Fabulous Outside Bar",
-            description:
-              "The outside bar on Christina O is still to this day better than any outside bar on any modern yacht of any size.",
-          },
-          {
-            title: "Full Sized Swimming Pool Or Dancefloor",
-            description:
-              "The famous pool with a recreation of Minoan art on its mosaic floor is the same one that was specified by Onassis.",
-          },
-          {
-            title: "Al Fresco Dining",
-            description:
-              "The Compass Deck forward of the famous yellow funnel has been renovated to create a new outside dining area, with shade and integrated lighting.",
-          },
-          {
-            title: "Impressive Speed",
-            description:
-              "The speed of Christina O is impressive. She was built as a frigate for chasing down U-Boats in World War II, and can reach 19 knots.",
-          },
-        ],
-      },
-      {
-        id: "st-david",
-        name: "ST DAVID",
-        images: [
-          "/photos/StDavid/66929739be99ed26097803c9_DSC_8798.jpg.pagespeed.ce_.8zwqRklk0t-2-2048x1365-p-1600.jpg",
-          "/photos/StDavid/669296f9fce9dccfe839c69f_St-David-Jacuzzi-and-sunbed-2048x1365-p-1600.jpg",
-          "/photos/StDavid/6692969f15ca3040b3c6d3fd_Xanadu-Superyacht-Staircase.jpg",
-          "/photos/StDavid/669296cce46349c6e731a286_gim-p-1600.jpg",
-          "/photos/StDavid/669296671188de0b90aea4ae_St-David-Master-cabin-lounge-2048x1365-p-1600.jpg",
-        ],
-        guests: 12,
-        cabins: 6,
-        crew: 15,
-        description:
-          "Launched by the world-renowned Benetti Shipyard, and designed internally by Andrew Winch, the magnificent custom-made 60 metre motor yacht St.David was recently refitted in 2019 to achieve one sole purpose: to create the absolute pinnacle of contemporary charter excellence.",
-        features: [
-          {
-            title: "Magnificent Staterooms",
-            description:
-              "Her opulent interior sleeps up to 12 guests in six staterooms that incorporate a magnificent master suite, full-beam VIP stateroom and four spacious double rooms.",
-          },
-          {
-            title: "Beautiful Interior Design",
-            description:
-              "Throughout, her interior living spaces are finished to the highest standards, evident in her beautiful mosaic floors, sculptured tables and detailed marquetry.",
-          },
-          {
-            title: "Gym and Spa",
-            description:
-              "The interior features a well equipped gym, a spa room where a resident physiotherapist offers a full range of complimentary treatments throughout your stay.",
-          },
-          {
-            title: "Impressive Deck Features",
-            description:
-              "Outside, perhaps her most impressive feature is the oversize jacuzzi pool refitted in 2019 with new pumps and jets.",
-          },
-        ],
-      },
-      {
-        id: "moonraker",
-        name: "MOONRAKER",
-        images: [
-          "/photos/moon/1189c760-0394-11ef-86f6-1d78f30f3411-9081045_20231009135149856_1_XLARGE.webp",
-          "/photos/moon/6692a635c3652e1b0876c711_ALN01451-2048x1365-p-1600.jpg",
-          "/photos/moon/6692a5d79cd60f19f45f3c33_ALN02092.jpg",
-          "/photos/moon/6692a5aab281174d4c45e46b_ALN02560-2048x1365-p-1600.jpg",
-          "/photos/moon/6692a6679cd60f19f45f8d93_unnamed-1-1.jpg",
-        ],
-        guests: 8,
-        cabins: 4,
-        crew: 6,
-        description:
-          "Luxury yacht Moonraker, built in 1992 and benefitting from a full refit in 2021 is a luxury charter yacht with beautifully proportioned decks and immaculate interior.",
-        features: [
-          {
-            title: "Air Conditioned Dining Area",
-            description:
-              "The aft deck is a great focal point of the yacht. The dining table benefits from full shade and uniquely, air conditioning ducts send cool air into the exterior dining space.",
-          },
-          {
-            title: "Large Main Salon And Full Cocktail Bar",
-            description:
-              "Her large main salon benefits from a full cocktail bar and a generous lounge in neutral contemporary colours. The entire space receives ample natural light which emphasises the sense of space.",
-          },
-          {
-            title: "Large Master Suite",
-            description:
-              "She accommodates 8 guests in four cabins. The large master suite is particularly spacious for a yacht of this size, with the full beam of the yacht, ample walk-in closet space, and a study area.",
-          },
-          {
-            title: "Spanish Charter License",
-            description:
-              "With her recent refit and maintenance period, and first class crew, this iconic yacht represents excellent value for money and will take you on an outstanding yachting adventure.",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: "Luxury Day Charters",
-    description: "Perfect for day trips and coastal adventures",
-    yachts: [
-      {
-        id: "shadow-900",
-        name: "Shadow 900",
-        images: [
-          "/photos/Shadow900/000001.jpg",
-          "/photos/Shadow900/000002.jpg",
-          "/photos/Shadow900/000003.jpg",
-        ],
-        guests: 8,
-        cabins: 2,
-        crew: 2,
-        description:
-          "The perfect day yacht for exploring the French Riviera coastline in style and comfort.",
-        features: [
-          {
-            title: "Spacious Sundeck",
-            description:
-              "Enjoy sunbathing and relaxation on the spacious front deck with comfortable loungers.",
-          },
-          {
-            title: "Water Sports Equipment",
-            description:
-              "Paddleboards, snorkeling gear, and other water toys for your enjoyment.",
-          },
-          {
-            title: "Premium Sound System",
-            description:
-              "High-quality audio system throughout for the perfect atmosphere.",
-          },
-          {
-            title: "Gourmet Galley",
-            description:
-              "Well-equipped kitchen for preparing delicious meals and refreshments.",
-          },
-        ],
-      },
-      {
-        id: "van-dutch-40",
-        name: "VanDutch 40",
-        images: [
-          "/photos/VanDutch40 /000001.jpeg",
-          "/photos/VanDutch40 /000002.jpeg",
-          "/photos/VanDutch40 /000003.jpeg",
-          "/photos/VanDutch40 /000004.jpeg",
-          "/photos/VanDutch40 /000005.jpeg",
-          "/photos/VanDutch40 /000006.jpeg",
+          "/photos/homepage/apartment2/004-photopetit-140323-1679310750.jpg",
+          "/photos/homepage/apartment2/101-photopetit-140323-1679310824.jpg",
+          "/photos/homepage/apartment2/057-photopetit-140323-1679310813.jpg",
         ],
         guests: 10,
-        cabins: 2,
-        crew: 2,
+        bedrooms: 5,
+        bathrooms: 5,
+        location: "Monaco Port",
+        sqm: 345,
         description:
-          "Elegant and powerful, the VanDutch 40 is an icon of modern yacht design, offering a sleek profile and outstanding performance.",
+          "Located on the port of Monaco in the 'Panorama' residence. This building benefits from a strategic location in the heart of the Principality. La Condamine is a dynamic and residential area. Close to all amenities (shops, schools, restaurants, transport). This unique one-storey flat has a panoramic view of the sea, the port and the Formula 1 Grand Prix.",
         features: [
           {
-            title: "Iconic Design",
+            title: "Panoramic Views",
             description:
-              "Instantly recognizable vertical bow and clean lines make the VanDutch 40 a status symbol on the water.",
+              "Enjoy breathtaking panoramic views of the Monaco harbour, sea, and Formula 1 Grand Prix circuit.",
           },
           {
-            title: "Spacious Deck",
+            title: "Spacious Terrace",
             description:
-              "Open layout with generous sunbathing areas and comfortable seating for ultimate relaxation.",
+              "A 345 sqm terrace surrounds the flat, perfect for outdoor entertaining with stunning views.",
           },
           {
-            title: "Premium Sound System",
+            title: "Designer Interior",
             description:
-              "High-end audio equipment to create the perfect atmosphere for cruising.",
+              "Renovated with high quality materials and fully furnished by renowned interior designers.",
           },
           {
-            title: "Impressive Speed",
+            title: "Premium Amenities",
             description:
-              "Powerful engines deliver thrilling performance and exceptional handling.",
+              "Features two master suites with bathrooms and dressing rooms, plus 4 additional bedrooms with bathrooms.",
+          },
+        ],
+      },
+      {
+        id: "beverly-palace",
+        name: "BEVERLY PALACE - RENOVATED FAMILY FLAT",
+        images: [
+          "/photos/homepage/apartment1/terrasse-1733152883.jpg",
+          "/photos/homepage/apartment1/vue-mer-zoom-1733152893.jpg",
+          "/photos/homepage/apartment1/vue-cap-martin-1733152890.jpg",
+        ],
+        guests: 6,
+        bedrooms: 3,
+        bathrooms: 3,
+        location: "Moneghetti, Monaco",
+        description:
+          "Located in the Moneghetti residential area, in a high-quality, recently refurbished residence with concierge. Just a stone's throw from the dynamic Condamine district and its many amenities, as well as the port of Monaco. This 3-bedroom flat is ideal for a family and has recently been tastefully renovated to a very high standard.",
+        features: [
+          {
+            title: "Sophisticated Design",
+            description:
+              "Recently renovated to a very high standard with tasteful, contemporary design elements.",
+          },
+          {
+            title: "Private Gym",
+            description:
+              "Features a converted loggia that now serves as a private gym space.",
+          },
+          {
+            title: "Summer Kitchen",
+            description:
+              "Enjoy a partially enclosed terrace with a summer kitchen on the south/west façade.",
+          },
+          {
+            title: "Optimized Storage",
+            description:
+              "Perfectly optimized with plenty of storage space throughout the apartment.",
           },
         ],
       },
@@ -254,18 +138,19 @@ const Contact = () => {
     name: "",
     email: "",
     phone: "",
-    dates: "",
-    guests: "",
     message: "",
-    yachtInterest: "",
+    propertyInterest: "",
+    checkIn: "",
+    checkOut: "",
+    guests: "",
   });
 
-  const [selectedYacht, setSelectedYacht] = useState<YachtFeature | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const [selectedProperty, setSelectedProperty] =
+    useState<PropertyFeature | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [showContactForm, setShowContactForm] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [allYachtPhotos, setAllYachtPhotos] = useState<string[]>([]);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -278,532 +163,711 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitting(true);
+    setIsSubmitting(true);
+    setSubmitSuccess(false);
+    setSubmitError(false);
 
-    // Simulate form submission
-    console.log("Form submitted:", formData);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    // In a real implementation, you would send this data to your backend
-    setTimeout(() => {
-      setSubmitting(false);
-      setSubmitted(true);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
 
-      // Reset form after successful submission
-      setTimeout(() => {
-        setShowContactForm(false);
-        setSubmitted(false);
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          dates: "",
-          guests: "",
-          message: "",
-          yachtInterest: selectedYacht ? selectedYacht.name : "",
-        });
-      }, 3000);
-    }, 1500);
+      setSubmitSuccess(true);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+        propertyInterest: "",
+        checkIn: "",
+        checkOut: "",
+        guests: "",
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSubmitError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleYachtClick = (yacht: YachtFeature) => {
-    setSelectedYacht(yacht);
+  const handlePropertyClick = (property: PropertyFeature) => {
+    setSelectedProperty(property);
     setCurrentImageIndex(0);
-    setAllYachtPhotos(yacht.images);
-    setFormData((prev) => ({ ...prev, yachtInterest: yacht.name }));
+    document.body.style.overflow = "hidden";
   };
 
   const handleCloseGallery = () => {
-    setSelectedYacht(null);
-    setCurrentImageIndex(0);
-    setShowContactForm(false);
-    setAllYachtPhotos([]);
+    setSelectedProperty(null);
+    document.body.style.overflow = "";
   };
 
-  const handlePrevImage = useCallback(() => {
-    if (!selectedYacht) return;
+  const handlePrevImage = () => {
+    if (!selectedProperty) return;
     setCurrentImageIndex((prev) =>
-      prev === 0 ? allYachtPhotos.length - 1 : prev - 1
+      prev === 0 ? selectedProperty.images.length - 1 : prev - 1
     );
-  }, [selectedYacht, allYachtPhotos]);
-
-  const handleNextImage = useCallback(() => {
-    if (!selectedYacht) return;
-    setCurrentImageIndex((prev) =>
-      prev === allYachtPhotos.length - 1 ? 0 : prev + 1
-    );
-  }, [selectedYacht, allYachtPhotos]);
-
-  const openContactForm = () => {
-    setShowContactForm(true);
   };
 
-  // Keyboard navigation for gallery
+  const handleNextImage = () => {
+    if (!selectedProperty) return;
+    setCurrentImageIndex((prev) =>
+      prev === selectedProperty.images.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  // Keyboard navigation for the gallery
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!selectedYacht) return;
+      if (!selectedProperty) return;
 
-      if (e.key === "ArrowLeft") {
-        handlePrevImage();
-      } else if (e.key === "ArrowRight") {
+      if (e.key === "ArrowRight") {
         handleNextImage();
+      } else if (e.key === "ArrowLeft") {
+        handlePrevImage();
       } else if (e.key === "Escape") {
         handleCloseGallery();
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedYacht, handlePrevImage, handleNextImage]);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedProperty]);
 
   return (
     <>
       <Head>
-        <title>Yacht Collection | Riviera Yachts</title>
+        <title>Contact Us | Riviera Stays</title>
         <meta
           name="description"
-          content="Experience the pinnacle of luxury yachting with our curated collection of premium vessels, from iconic superyachts to sleek day cruisers."
+          content="Contact Riviera Stays at riviera-stays.com to book your luxury short-term rental in Monaco and the French Riviera. Our team is ready to assist you with personalized service."
+        />
+        <meta
+          name="keywords"
+          content="contact Riviera Stays, Monaco rental booking, luxury apartment rental, French Riviera accommodation"
         />
       </Head>
 
-      <div className="min-h-screen bg-white text-gray-900">
-        <Navigation transparent={false} />
+      <div className="min-h-screen bg-white">
+        <Navigation />
 
-        {/* Hero Section */}
-        <section className="relative pt-32 pb-20 overflow-hidden h-screen max-h-[800px] flex items-center">
-          {/* Background Video or Image with overlay */}
-          <div className="absolute inset-0 z-0">
+        {/* Hero */}
+        <section className="relative py-20 bg-gray-800 text-white">
+          <div className="absolute inset-0 z-0 opacity-30">
             <Image
-              src="/photos/CHRISTINAO/6691a6155c66ae7bc0f1dba9_CHRISTINA-O-swimming-pool_credits_Stef_Bravin-2048x1363-p-1600.jpg"
-              alt="Luxury Yacht Charter"
+              src="/photos/homepage/apartment1/vue-cap-martin-1733152890.jpg"
+              alt="Contact Riviera Stays"
               fill
               className="object-cover"
-              quality={95}
-              priority
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/20"></div>
           </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <h1 className="text-5xl font-light mb-6 tracking-tight">
+              Contact Us
+            </h1>
+            <p className="text-xl max-w-3xl">
+              Get in touch with our team to inquire about our luxury properties
+              or to request a custom proposal for your stay in Monaco or the
+              French Riviera.
+            </p>
+          </div>
+        </section>
 
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="max-w-3xl">
-              <h1 className="text-5xl md:text-7xl font-light mb-6 tracking-tight text-white leading-tight">
-                Exceptional Yacht Experiences
-              </h1>
-              <p className="text-xl text-white/90 max-w-2xl mb-10 font-light leading-relaxed">
-                From historic superyachts to performance day cruisers, we
-                deliver impeccable service and unforgettable moments on the
-                Mediterranean.
+        {/* Property Portfolio Notice */}
+        <section className="py-12 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-white p-8 rounded-lg shadow-md border border-gray-200">
+              <h2 className="text-2xl font-medium mb-4 text-gray-900">
+                Our Extensive Property Portfolio
+              </h2>
+              <p className="text-lg text-gray-700 mb-4">
+                We have tens of luxury properties available throughout Monaco
+                and the French Riviera, many of which are not publicly listed
+                for privacy and exclusivity reasons.
               </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <a
-                  href="#request-quote"
-                  className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-md hover:bg-gray-100 transition-colors text-base font-medium"
+              <p className="text-lg text-gray-700 mb-4">
+                Whether you&apos;re looking for a budget-friendly option or the
+                most exclusive luxury experience, our diverse portfolio can
+                accommodate your needs. Tell us your requirements below, and our
+                team will prepare a tailored proposal with properties that match
+                your needs perfectly.
+              </p>
+              <div className="flex flex-col md:flex-row gap-4">
+                <Link
+                  href="#contact-form"
+                  className="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-md hover:bg-gray-800 transition-colors text-base font-medium"
                 >
-                  <span>Request Custom Quote</span>
-                </a>
-                <a
+                  <span>Fill Out Our Form</span>
+                  <ArrowRight size={18} />
+                </Link>
+                <Link
                   href="https://wa.me/+377643917618"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 bg-green-600 text-white px-8 py-4 rounded-md hover:bg-green-700 transition-colors text-base font-medium"
+                  className="inline-flex items-center justify-center gap-2 bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition-colors text-base font-medium"
                 >
-                  <MessageSquare className="w-4 h-4" />
-                  <span>Instant WhatsApp</span>
-                </a>
-              </div>
-
-              <div className="inline-flex items-center gap-2 text-white/80 text-sm">
-                <span className="text-white font-medium">Available 24/7:</span>
-                <span>+377 6 43 91 76 18</span>
+                  <span>WhatsApp Us Now</span>
+                  <MessageSquare size={18} />
+                </Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Featured Superyachts Section */}
-        <section className="py-24 bg-white">
+        {/* Featured Properties */}
+        <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-light mb-4 tracking-tight">
-                Luxury Charter Fleet
+            <div className="mb-12 text-center">
+              <h2 className="text-4xl font-light mb-6 text-gray-900">
+                Featured Properties
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light">
-                Discover our prestigious selection of luxury yachts available
-                for charter
+              <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+                These are just a few examples from our extensive collection of
+                luxury properties. Contact us to discover our full portfolio
+                tailored to your needs.
               </p>
             </div>
 
-            <div className="space-y-24">
-              {/* Premium yachts */}
-              {yachtCategories[0].yachts.map((yacht) => (
-                <div key={yacht.id} className="mb-12">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <div
-                      className="relative h-[500px] overflow-hidden rounded-lg"
-                      onClick={() => handleYachtClick(yacht)}
-                    >
-                      <Image
-                        src={yacht.images[0]}
-                        alt={yacht.name}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                        quality={95}
-                        priority
-                      />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              {propertyCategories[0].properties.map((property) => (
+                <div
+                  key={property.id}
+                  className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+                >
+                  <div className="relative h-80">
+                    <Image
+                      src={property.images[0]}
+                      alt={property.name}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div className="absolute bottom-6 left-6">
+                      <span className="bg-gray-900/80 text-white px-3 py-1 rounded-full text-sm">
+                        {property.location}
+                      </span>
                     </div>
-                    <div className="flex flex-col justify-center">
-                      <h3 className="text-3xl font-light mb-6 tracking-tight">
-                        {yacht.name}
-                      </h3>
+                  </div>
 
-                      <div className="flex items-center gap-8 mb-6 text-gray-600">
-                        <div className="flex items-center gap-2">
-                          <Users className="w-5 h-5" />
-                          <span>{yacht.guests} Guests</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Bed className="w-5 h-5" />
-                          <span>{yacht.cabins} Cabins</span>
-                        </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-medium mb-3">
+                      {property.name}
+                    </h3>
+
+                    <div className="flex flex-wrap gap-6 mb-4">
+                      <div className="flex items-center text-gray-700">
+                        <Users size={18} className="mr-2" />
+                        <span>{property.guests} guests</span>
                       </div>
-
-                      <p className="text-gray-600 mb-8 font-light leading-relaxed">
-                        {yacht.description.length > 200
-                          ? `${yacht.description.substring(0, 200)}...`
-                          : yacht.description}
-                      </p>
-
-                      <div>
-                        <button
-                          onClick={() => handleYachtClick(yacht)}
-                          className="inline-flex items-center text-gray-900 font-medium"
-                        >
-                          <span>View Details</span>
-                          <ArrowRight className="w-4 h-4 ml-2" />
-                        </button>
+                      <div className="flex items-center text-gray-700">
+                        <Bed size={18} className="mr-2" />
+                        <span>{property.bedrooms} bedrooms</span>
                       </div>
+                      <div className="flex items-center text-gray-700">
+                        <Bath size={18} className="mr-2" />
+                        <span>{property.bathrooms} bathrooms</span>
+                      </div>
+                    </div>
+
+                    <p className="text-gray-600 mb-6 line-clamp-3">
+                      {property.description}
+                    </p>
+
+                    <div className="flex justify-between items-center">
+                      <button
+                        onClick={() => handlePropertyClick(property)}
+                        className="inline-flex items-center text-gray-900 hover:text-gray-700 font-medium"
+                      >
+                        View Details
+                        <ChevronRight size={16} className="ml-1" />
+                      </button>
+                      <Link
+                        href="#contact-form"
+                        className="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors text-sm font-medium"
+                      >
+                        <span>Inquire</span>
+                        <MessageSquare size={16} />
+                      </Link>
                     </div>
                   </div>
                 </div>
               ))}
+            </div>
 
-              {/* Note about sample fleet */}
-              <div className="text-center py-8 px-4 bg-gray-50 rounded-lg">
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                  The yachts displayed here represent just a sample of our
-                  extensive fleet. Contact our yacht charter specialists to
-                  discover our complete collection of luxury vessels tailored to
-                  your specific requirements.
+            <div className="mt-16 text-center">
+              <div className="inline-block p-8 bg-gray-50 rounded-lg max-w-3xl">
+                <h3 className="text-2xl font-medium mb-4 text-gray-900">
+                  Discover Our Full Portfolio
+                </h3>
+                <p className="text-lg text-gray-700 mb-6">
+                  These are just a small sample of our extensive property
+                  collection. Contact us to receive information about our
+                  complete portfolio of luxury properties in Monaco and the
+                  French Riviera.
                 </p>
+                <Link
+                  href="#contact-form"
+                  className="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-md hover:bg-gray-800 transition-colors text-base font-medium"
+                >
+                  <span>Request Complete Property List</span>
+                  <ArrowRight size={18} />
+                </Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Other Yacht Categories */}
-        <section className="py-24 bg-gray-50">
+        {/* Contact Form Section */}
+        <section id="contact-form" className="py-24 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {yachtCategories.slice(1).map((category, index) => (
-              <div key={index} className="mb-20">
-                <h2 className="text-3xl font-light mb-12 tracking-tight">
-                  {category.title}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+              <div>
+                <h2 className="text-4xl font-light mb-6 text-gray-900">
+                  Contact Us
                 </h2>
+                <p className="text-xl text-gray-700 mb-8">
+                  Fill out the form and our team will get back to you with a
+                  personalized property selection based on your needs and
+                  budget.
+                </p>
 
-                <div className="grid md:grid-cols-2 gap-10">
-                  {category.yachts.map((yacht) => (
-                    <div
-                      key={yacht.id}
-                      onClick={() => handleYachtClick(yacht)}
-                      className="group cursor-pointer bg-white overflow-hidden rounded-lg hover:shadow-md transition-shadow"
-                    >
-                      <div className="relative h-80 overflow-hidden">
-                        <Image
-                          src={yacht.images[0]}
-                          alt={yacht.name}
-                          fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-105"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          quality={90}
-                          loading="lazy"
-                        />
-                      </div>
-                      <div className="p-8">
-                        <h3 className="text-xl font-light mb-2">
-                          {yacht.name}
-                        </h3>
-
-                        <div className="flex items-center gap-6 mb-4 text-gray-600 text-sm">
-                          <div className="flex items-center gap-2">
-                            <Users className="w-4 h-4" />
-                            <span>{yacht.guests} Guests</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Bed className="w-4 h-4" />
-                            <span>{yacht.cabins} Cabins</span>
-                          </div>
-                        </div>
-
-                        <p className="text-gray-600 text-sm mb-4 font-light">
-                          {yacht.description.length > 120
-                            ? `${yacht.description.substring(0, 120)}...`
-                            : yacht.description}
-                        </p>
-
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleYachtClick(yacht);
-                          }}
-                          className="inline-flex items-center text-gray-900 font-medium text-sm mt-2"
-                        >
-                          <span>View Details</span>
-                          <ArrowRight className="w-4 h-4 ml-1" />
-                        </button>
-                      </div>
+                <div className="space-y-8">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Phone className="w-5 h-5 text-gray-700" />
                     </div>
-                  ))}
+                    <div>
+                      <h3 className="text-xl font-medium mb-2">
+                        Call Us Directly
+                      </h3>
+                      <a
+                        href="tel:+377643917618"
+                        className="text-lg text-gray-700 hover:text-gray-900 transition-colors"
+                      >
+                        +377 643917618
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Mail className="w-5 h-5 text-gray-700" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-medium mb-2">Email Us</h3>
+                      <a
+                        href="mailto:info@riviera-stays.com"
+                        className="text-lg text-gray-700 hover:text-gray-900 transition-colors"
+                      >
+                        info@riviera-stays.com
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
+                      <MessageSquare className="w-5 h-5 text-gray-700" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-medium mb-2">WhatsApp</h3>
+                      <a
+                        href="https://wa.me/+377643917618"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-lg text-gray-700 hover:text-gray-900 transition-colors"
+                      >
+                        +377 643917618
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-5 h-5 text-gray-700" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-medium mb-2">
+                        Office Address
+                      </h3>
+                      <p className="text-lg text-gray-700">
+                        7 avenue des Papalins
+                        <br />
+                        98000 Monaco
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            ))}
+
+              <div>
+                {submitSuccess ? (
+                  <div className="bg-green-50 p-8 rounded-lg border border-green-200 text-center h-full flex flex-col justify-center">
+                    <div className="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-6">
+                      <Check className="w-8 h-8 text-green-600" />
+                    </div>
+                    <h3 className="text-2xl font-medium mb-4 text-gray-900">
+                      Thank You!
+                    </h3>
+                    <p className="text-lg text-gray-700 mb-6">
+                      Your inquiry has been received. Our team will contact you
+                      shortly with a personalized property selection based on
+                      your requirements.
+                    </p>
+                    <button
+                      onClick={() => setSubmitSuccess(false)}
+                      className="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-md hover:bg-gray-800 transition-colors text-base font-medium mx-auto"
+                    >
+                      <span>Submit Another Inquiry</span>
+                    </button>
+                  </div>
+                ) : (
+                  <form
+                    onSubmit={handleSubmit}
+                    className="bg-white p-8 rounded-lg shadow-md"
+                  >
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                      <div>
+                        <label
+                          htmlFor="name"
+                          className="block text-gray-700 mb-2"
+                        >
+                          Your Name
+                        </label>
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="email"
+                          className="block text-gray-700 mb-2"
+                        >
+                          Email Address
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                      <div>
+                        <label
+                          htmlFor="phone"
+                          className="block text-gray-700 mb-2"
+                        >
+                          Phone Number
+                        </label>
+                        <input
+                          type="tel"
+                          id="phone"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="guests"
+                          className="block text-gray-700 mb-2"
+                        >
+                          Number of Guests
+                        </label>
+                        <select
+                          id="guests"
+                          name="guests"
+                          value={formData.guests}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                        >
+                          <option value="">Select number of guests</option>
+                          <option value="1-2">1-2 guests</option>
+                          <option value="3-4">3-4 guests</option>
+                          <option value="5-6">5-6 guests</option>
+                          <option value="7+">7+ guests</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                      <div>
+                        <label
+                          htmlFor="checkIn"
+                          className="block text-gray-700 mb-2"
+                        >
+                          Check-in Date
+                        </label>
+                        <input
+                          type="date"
+                          id="checkIn"
+                          name="checkIn"
+                          value={formData.checkIn}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="checkOut"
+                          className="block text-gray-700 mb-2"
+                        >
+                          Check-out Date
+                        </label>
+                        <input
+                          type="date"
+                          id="checkOut"
+                          name="checkOut"
+                          value={formData.checkOut}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mb-6">
+                      <label
+                        htmlFor="propertyInterest"
+                        className="block text-gray-700 mb-2"
+                      >
+                        Property Interest
+                      </label>
+                      <select
+                        id="propertyInterest"
+                        name="propertyInterest"
+                        value={formData.propertyInterest}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                      >
+                        <option value="">Select property type</option>
+                        <option value="Monaco">Monaco Properties</option>
+                        <option value="French Riviera">
+                          French Riviera Properties
+                        </option>
+                        <option value="Both">Both Locations</option>
+                      </select>
+                    </div>
+
+                    <div className="mb-6">
+                      <label
+                        htmlFor="message"
+                        className="block text-gray-700 mb-2"
+                      >
+                        Additional Requirements
+                      </label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        rows={4}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                        placeholder="Tell us about your budget, preferred location, and any specific requirements you may have."
+                      ></textarea>
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="inline-flex items-center justify-center gap-2 w-full bg-gray-900 text-white px-6 py-4 rounded-md hover:bg-gray-800 transition-colors text-base font-medium"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></span>
+                          <span>Processing...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Send Inquiry</span>
+                          <ArrowRight size={18} />
+                        </>
+                      )}
+                    </button>
+
+                    {submitError && (
+                      <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-md">
+                        There was an error submitting your form. Please try
+                        again later.
+                      </div>
+                    )}
+                  </form>
+                )}
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* Gallery Modal */}
-        {selectedYacht && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-0 bg-black/90 overflow-hidden">
-            <div className="w-full h-full max-w-full flex flex-col">
-              <div className="relative flex-grow flex">
-                {/* Large main image */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Image
-                    src={allYachtPhotos[currentImageIndex]}
-                    alt={`${selectedYacht.name} - Image ${
-                      currentImageIndex + 1
-                    }`}
-                    fill
-                    className="object-contain"
-                    sizes="100vw"
-                    quality={95}
-                    priority
-                  />
+        {/* Property Detail Modal */}
+        {selectedProperty && (
+          <div className="fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-75 flex items-center justify-center">
+            <div className="relative bg-white max-w-6xl w-full max-h-[90vh] overflow-y-auto rounded-lg shadow-xl">
+              <button
+                onClick={handleCloseGallery}
+                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 z-10 bg-white rounded-full p-2"
+              >
+                <X size={24} />
+              </button>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2">
+                {/* Image Slider */}
+                <div className="relative h-96 lg:h-full">
+                  {selectedProperty.images.length > 0 && (
+                    <>
+                      <Image
+                        src={selectedProperty.images[currentImageIndex]}
+                        alt={`${selectedProperty.name} - Image ${
+                          currentImageIndex + 1
+                        }`}
+                        fill
+                        className="object-cover"
+                      />
+                      {selectedProperty.images.length > 1 && (
+                        <>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handlePrevImage();
+                            }}
+                            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-75 rounded-full p-2 hover:bg-opacity-100 transition-colors"
+                          >
+                            <ChevronLeft size={24} />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleNextImage();
+                            }}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-75 rounded-full p-2 hover:bg-opacity-100 transition-colors"
+                          >
+                            <ChevronRight size={24} />
+                          </button>
+                          <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+                            {selectedProperty.images.map((_, index) => (
+                              <button
+                                key={index}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setCurrentImageIndex(index);
+                                }}
+                                className={`w-3 h-3 rounded-full ${
+                                  currentImageIndex === index
+                                    ? "bg-white"
+                                    : "bg-white/50"
+                                }`}
+                              />
+                            ))}
+                          </div>
+                        </>
+                      )}
+                    </>
+                  )}
                 </div>
 
-                {/* Navigation buttons */}
-                <button
-                  onClick={handlePrevImage}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/40 z-10 transition-colors"
-                  aria-label="Previous image"
-                >
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={handleNextImage}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/40 z-10 transition-colors"
-                  aria-label="Next image"
-                >
-                  <ChevronRight className="w-6 h-6" />
-                </button>
-
-                {/* Close button */}
-                <button
-                  onClick={handleCloseGallery}
-                  className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/40 z-10 transition-colors"
-                  aria-label="Close gallery"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-
-                {/* Image counter */}
-                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/20 backdrop-blur-sm text-white text-sm px-4 py-1.5 rounded-full">
-                  {currentImageIndex + 1} / {allYachtPhotos.length}
-                </div>
-              </div>
-
-              {/* Info panel (slides up from bottom on mobile, fixed to side on desktop) */}
-              <div className="bg-white h-auto lg:h-full lg:w-96 lg:absolute lg:right-0 lg:top-0 overflow-y-auto">
-                <div className="p-8 lg:p-10">
-                  <div className="mb-8">
-                    <h3 className="text-2xl font-light mb-4 tracking-tight">
-                      {selectedYacht.name}
+                {/* Content */}
+                <div className="p-8">
+                  <div className="mb-6">
+                    <div className="flex items-center text-sm text-gray-500 mb-2">
+                      <MapPin size={16} className="mr-1" />
+                      <span>{selectedProperty.location}</span>
+                    </div>
+                    <h3 className="text-3xl font-medium mb-4">
+                      {selectedProperty.name}
                     </h3>
 
-                    <div className="flex flex-wrap gap-6 mb-6 text-gray-600">
-                      <div className="flex items-center gap-2">
-                        <Users className="w-4 h-4" />
-                        <span>{selectedYacht.guests} Guests</span>
+                    <div className="flex flex-wrap gap-6 mb-6">
+                      <div className="flex items-center text-gray-700">
+                        <Users size={18} className="mr-2" />
+                        <span>{selectedProperty.guests} guests</span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Bed className="w-4 h-4" />
-                        <span>{selectedYacht.cabins} Cabins</span>
+                      <div className="flex items-center text-gray-700">
+                        <Bed size={18} className="mr-2" />
+                        <span>{selectedProperty.bedrooms} bedrooms</span>
                       </div>
-                    </div>
-
-                    <p className="text-gray-600 font-light leading-relaxed">
-                      {selectedYacht.description}
-                    </p>
-                  </div>
-
-                  <div className="mb-8">
-                    <h4 className="text-lg font-medium mb-4 tracking-tight">
-                      Key Features
-                    </h4>
-                    <div className="space-y-4">
-                      {selectedYacht.features.map((feature, index) => (
-                        <div key={index}>
-                          <h5 className="font-medium text-gray-900 mb-1">
-                            {feature.title}
-                          </h5>
-                          <p className="text-gray-600 text-sm font-light">
-                            {feature.description}
-                          </p>
+                      <div className="flex items-center text-gray-700">
+                        <Bath size={18} className="mr-2" />
+                        <span>{selectedProperty.bathrooms} bathrooms</span>
+                      </div>
+                      {selectedProperty.sqm && (
+                        <div className="flex items-center text-gray-700">
+                          <Maximize size={18} className="mr-2" />
+                          <span>{selectedProperty.sqm} sqm</span>
                         </div>
-                      ))}
+                      )}
                     </div>
-                  </div>
 
-                  <div className="pt-4 border-t border-gray-100">
-                    <h4 className="text-lg font-medium mb-4 tracking-tight">
-                      Interested in {selectedYacht.name}?
-                    </h4>
-                    <div className="space-y-3">
-                      <a
-                        href={`https://wa.me/+377643917618?text=I am interested in chartering the yacht: ${selectedYacht.name}`}
+                    <div className="mb-6">
+                      <h4 className="text-xl font-medium mb-3">Description</h4>
+                      <p className="text-gray-700">
+                        {selectedProperty.description}
+                      </p>
+                    </div>
+
+                    <div className="mb-8">
+                      <h4 className="text-xl font-medium mb-3">Features</h4>
+                      <ul className="grid grid-cols-1 gap-4">
+                        {selectedProperty.features.map((feature, index) => (
+                          <li
+                            key={index}
+                            className="flex flex-col text-gray-700"
+                          >
+                            <div className="flex items-start">
+                              <Check
+                                size={18}
+                                className="mr-2 text-green-600 flex-shrink-0 mt-1"
+                              />
+                              <span className="font-medium">
+                                {feature.title}
+                              </span>
+                            </div>
+                            <p className="ml-6 text-sm text-gray-600">
+                              {feature.description}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <Link
+                        href="#contact-form"
+                        onClick={handleCloseGallery}
+                        className="inline-flex items-center justify-center gap-2 w-full bg-gray-900 text-white px-6 py-3 rounded-md hover:bg-gray-800 transition-colors text-base font-medium"
+                      >
+                        <span>Inquire About This Property</span>
+                        <ArrowRight size={18} />
+                      </Link>
+                      <Link
+                        href="https://wa.me/+377643917618"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-md transition-colors w-full"
+                        className="inline-flex items-center justify-center gap-2 w-full bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition-colors text-base font-medium"
                       >
-                        <MessageSquare className="w-4 h-4" />
-                        <span>Start a Conversation</span>
-                      </a>
-                      <button
-                        onClick={openContactForm}
-                        className="flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-900 px-6 py-3 rounded-md border border-gray-200 transition-colors w-full"
-                      >
-                        <span>Request Information</span>
-                      </button>
+                        <span>WhatsApp Us</span>
+                        <MessageSquare size={18} />
+                      </Link>
                     </div>
-
-                    {showContactForm && (
-                      <div className="mt-8 pt-6 border-t border-gray-100">
-                        <h4 className="text-lg font-medium mb-4 tracking-tight">
-                          Quick Enquiry
-                        </h4>
-
-                        {!submitted ? (
-                          <form onSubmit={handleSubmit} className="space-y-4">
-                            <div>
-                              <input
-                                type="text"
-                                id="modal-name"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-4 py-2.5 bg-gray-50 border-0 rounded-md focus:ring-1 focus:ring-gray-900 outline-none transition"
-                                placeholder="Your name"
-                              />
-                            </div>
-
-                            <div>
-                              <input
-                                type="email"
-                                id="modal-email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-4 py-2.5 bg-gray-50 border-0 rounded-md focus:ring-1 focus:ring-gray-900 outline-none transition"
-                                placeholder="Your email"
-                              />
-                            </div>
-
-                            <div>
-                              <input
-                                type="tel"
-                                id="modal-phone"
-                                name="phone"
-                                value={formData.phone}
-                                onChange={handleChange}
-                                className="w-full px-4 py-2.5 bg-gray-50 border-0 rounded-md focus:ring-1 focus:ring-gray-900 outline-none transition"
-                                placeholder="Phone number"
-                              />
-                            </div>
-
-                            <div>
-                              <textarea
-                                id="modal-message"
-                                name="message"
-                                value={formData.message}
-                                onChange={handleChange}
-                                rows={3}
-                                className="w-full px-4 py-2.5 bg-gray-50 border-0 rounded-md focus:ring-1 focus:ring-gray-900 outline-none transition"
-                                placeholder="Tell us about your trip plans..."
-                              ></textarea>
-                            </div>
-
-                            <button
-                              type="submit"
-                              className="w-full bg-gray-900 hover:bg-gray-800 text-white px-6 py-2.5 rounded-md transition-colors"
-                            >
-                              {submitting ? (
-                                <span className="flex items-center justify-center">
-                                  <svg
-                                    className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                  >
-                                    <circle
-                                      className="opacity-25"
-                                      cx="12"
-                                      cy="12"
-                                      r="10"
-                                      stroke="currentColor"
-                                      strokeWidth="4"
-                                    ></circle>
-                                    <path
-                                      className="opacity-75"
-                                      fill="currentColor"
-                                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                    ></path>
-                                  </svg>
-                                  Sending...
-                                </span>
-                              ) : (
-                                "Send Enquiry"
-                              )}
-                            </button>
-                          </form>
-                        ) : (
-                          <div className="text-center py-6">
-                            <div className="mx-auto mb-4 w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6 text-gray-900"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M5 13l4 4L19 7"
-                                />
-                              </svg>
-                            </div>
-                            <h5 className="text-xl font-light mb-2">
-                              Thank You
-                            </h5>
-                            <p className="text-gray-600 text-sm font-light">
-                              Your enquiry has been received. We will contact
-                              you shortly about {selectedYacht.name}.
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>
@@ -811,596 +875,8 @@ const Contact = () => {
           </div>
         )}
 
-        {/* Testimonials Section */}
-        <section className="py-24 bg-gray-50">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-light mb-4 tracking-tight">
-                Customer Experiences
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto font-light">
-                Discover what our clients say about their unforgettable charter
-                experiences
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white p-8 rounded-lg shadow-sm">
-                <div className="flex items-center mb-1">
-                  <Star
-                    className="w-5 h-5 text-yellow-400"
-                    fill="currentColor"
-                  />
-                  <Star
-                    className="w-5 h-5 text-yellow-400"
-                    fill="currentColor"
-                  />
-                  <Star
-                    className="w-5 h-5 text-yellow-400"
-                    fill="currentColor"
-                  />
-                  <Star
-                    className="w-5 h-5 text-yellow-400"
-                    fill="currentColor"
-                  />
-                  <Star
-                    className="w-5 h-5 text-yellow-400"
-                    fill="currentColor"
-                  />
-                </div>
-                <p className="text-gray-600 mb-6 font-light italic">
-                  &ldquo;The service was impeccable from initial inquiry to the
-                  end of our charter. The crew was attentive, professional, and
-                  made sure our Mediterranean experience was perfect.&rdquo;
-                </p>
-                <div className="flex items-center">
-                  <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-500 font-medium flex-shrink-0">
-                    JD
-                  </div>
-                  <div className="ml-3">
-                    <h4 className="text-sm font-medium text-gray-900">
-                      James D.
-                    </h4>
-                    <p className="text-xs text-gray-500">
-                      St. Tropez Charter, July 2023
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white p-8 rounded-lg shadow-sm">
-                <div className="flex items-center mb-1">
-                  <Star
-                    className="w-5 h-5 text-yellow-400"
-                    fill="currentColor"
-                  />
-                  <Star
-                    className="w-5 h-5 text-yellow-400"
-                    fill="currentColor"
-                  />
-                  <Star
-                    className="w-5 h-5 text-yellow-400"
-                    fill="currentColor"
-                  />
-                  <Star
-                    className="w-5 h-5 text-yellow-400"
-                    fill="currentColor"
-                  />
-                  <Star
-                    className="w-5 h-5 text-yellow-400"
-                    fill="currentColor"
-                  />
-                </div>
-                <p className="text-gray-600 mb-6 font-light italic">
-                  &ldquo;Our family vacation aboard the Shadow 900 was
-                  extraordinary. The yacht was immaculate, the itinerary
-                  perfectly planned, and the attention to detail
-                  remarkable.&rdquo;
-                </p>
-                <div className="flex items-center">
-                  <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-500 font-medium flex-shrink-0">
-                    SM
-                  </div>
-                  <div className="ml-3">
-                    <h4 className="text-sm font-medium text-gray-900">
-                      Sophie M.
-                    </h4>
-                    <p className="text-xs text-gray-500">
-                      Monaco to Portofino, August 2023
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white p-8 rounded-lg shadow-sm">
-                <div className="flex items-center mb-1">
-                  <Star
-                    className="w-5 h-5 text-yellow-400"
-                    fill="currentColor"
-                  />
-                  <Star
-                    className="w-5 h-5 text-yellow-400"
-                    fill="currentColor"
-                  />
-                  <Star
-                    className="w-5 h-5 text-yellow-400"
-                    fill="currentColor"
-                  />
-                  <Star
-                    className="w-5 h-5 text-yellow-400"
-                    fill="currentColor"
-                  />
-                  <Star
-                    className="w-5 h-5 text-yellow-400"
-                    fill="currentColor"
-                  />
-                </div>
-                <p className="text-gray-600 mb-6 font-light italic">
-                  &ldquo;Chartering the VanDutch 40 for our anniversary was the
-                  highlight of our year. Fast, stylish, and supremely
-                  comfortable&mdash;we&apos;re already planning our next
-                  charter.&rdquo;
-                </p>
-                <div className="flex items-center">
-                  <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-500 font-medium flex-shrink-0">
-                    AR
-                  </div>
-                  <div className="ml-3">
-                    <h4 className="text-sm font-medium text-gray-900">
-                      Alexander R.
-                    </h4>
-                    <p className="text-xs text-gray-500">
-                      Cannes Day Charter, June 2023
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Why Choose Us Section */}
-        <section className="py-20 bg-slate-900 text-white">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-serif mb-4">
-                Why Choose Riviera Yachts
-              </h2>
-              <p className="text-lg text-slate-300">
-                Experience unmatched luxury and service on the French Riviera
-              </p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center p-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/10 mb-6">
-                  <Star className="w-8 h-8" />
-                </div>
-                <h3 className="text-xl font-medium mb-3">Premium Fleet</h3>
-                <p className="text-slate-300">
-                  Meticulously maintained yachts from world-renowned
-                  manufacturers
-                </p>
-              </div>
-              <div className="text-center p-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/10 mb-6">
-                  <Users className="w-8 h-8" />
-                </div>
-                <h3 className="text-xl font-medium mb-3">Expert Crew</h3>
-                <p className="text-slate-300">
-                  Professional, multilingual crew dedicated to your comfort
-                </p>
-              </div>
-              <div className="text-center p-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/10 mb-6">
-                  <MapPin className="w-8 h-8" />
-                </div>
-                <h3 className="text-xl font-medium mb-3">Prime Location</h3>
-                <p className="text-slate-300">
-                  Based in Monaco with access to the best Mediterranean
-                  destinations
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Our Standards Section */}
-        <section className="py-24 bg-gray-900 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-20">
-              <h2 className="text-3xl md:text-4xl font-light mb-4 tracking-tight">
-                The Riviera Yachts Standard
-              </h2>
-              <p className="text-lg text-gray-300 max-w-2xl mx-auto font-light">
-                Technical excellence and meticulous attention to detail define
-                every aspect of our service
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-x-8 gap-y-16">
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-6">
-                  <Star className="w-7 h-7 text-white" />
-                </div>
-                <h3 className="text-xl font-medium mb-3 text-center">
-                  Curated Fleet Selection
-                </h3>
-                <p className="text-gray-300 text-center font-light">
-                  Our vessels are hand-selected based on engineering excellence,
-                  design credentials, and onboard systems that ensure both
-                  performance and comfort.
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-6">
-                  <Users className="w-7 h-7 text-white" />
-                </div>
-                <h3 className="text-xl font-medium mb-3 text-center">
-                  Certified Expert Crew
-                </h3>
-                <p className="text-gray-300 text-center font-light">
-                  Every crew member is rigorously trained and certified, with
-                  extensive knowledge of navigation, safety protocols, and the
-                  highest standards of hospitality.
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-6">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-7 h-7"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-medium mb-3 text-center">
-                  Impeccable Maintenance
-                </h3>
-                <p className="text-gray-300 text-center font-light">
-                  Regular technical inspections and meticulous maintenance
-                  ensure every system and component meets the highest
-                  operational and safety standards.
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-6">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-7 h-7"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 0 1.242 4.136m9.592-2.264a7.465 7.465 0 0 0 1.242 4.136 7.463 7.463 0 0 0 4.136 1.242 7.464 7.464 0 0 0 4.136-1.242 7.465 7.465 0 0 0-1.242-4.136 7.465 7.465 0 0 0-1.242-4.136 7.463 7.463 0 0 0-4.136-1.242 7.464 7.464 0 0 0-4.136 1.242 7.465 7.465 0 0 0-1.242 4.136Z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-medium mb-3 text-center">
-                  Advanced Itinerary Planning
-                </h3>
-                <p className="text-gray-300 text-center font-light">
-                  Sophisticated routing software combined with local knowledge
-                  ensures optimized itineraries that maximize your experience
-                  while considering weather, currents, and exclusive
-                  destinations.
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-6">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-7 h-7"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-medium mb-3 text-center">
-                  Quality Assurance
-                </h3>
-                <p className="text-gray-300 text-center font-light">
-                  Rigorous quality control processes ensure that every element
-                  of your charter meets our exacting standards, from galley
-                  provisions to entertainment systems.
-                </p>
-              </div>
-
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-6">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-7 h-7"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-medium mb-3 text-center">
-                  Personalized Technology
-                </h3>
-                <p className="text-gray-300 text-center font-light">
-                  Custom technological solutions, from connectivity to
-                  entertainment, are calibrated to your preferences before you
-                  step aboard.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section id="request-quote" className="py-24 bg-white">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-light mb-4 tracking-tight">
-                Request Information
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto font-light">
-                Our yacht specialists will create a tailored proposal for your
-                perfect voyage
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-              <form onSubmit={handleSubmit} className="space-y-8">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-gray-50 border-0 rounded-md focus:ring-1 focus:ring-gray-900 outline-none transition"
-                    placeholder="Your name"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-gray-50 border-0 rounded-md focus:ring-1 focus:ring-gray-900 outline-none transition"
-                      placeholder="your@email.com"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="phone"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-gray-50 border-0 rounded-md focus:ring-1 focus:ring-gray-900 outline-none transition"
-                      placeholder="+1 (123) 456-7890"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label
-                      htmlFor="dates"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Preferred Dates
-                    </label>
-                    <input
-                      type="text"
-                      id="dates"
-                      name="dates"
-                      value={formData.dates}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-gray-50 border-0 rounded-md focus:ring-1 focus:ring-gray-900 outline-none transition"
-                      placeholder="MM/DD/YYYY - MM/DD/YYYY"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="guests"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Number of Guests
-                    </label>
-                    <input
-                      type="number"
-                      id="guests"
-                      name="guests"
-                      value={formData.guests}
-                      onChange={handleChange}
-                      min="1"
-                      className="w-full px-4 py-3 bg-gray-50 border-0 rounded-md focus:ring-1 focus:ring-gray-900 outline-none transition"
-                      placeholder="Number of guests"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="yachtInterest"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Yacht of Interest
-                  </label>
-                  <select
-                    id="yachtInterest"
-                    name="yachtInterest"
-                    value={formData.yachtInterest}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-50 border-0 rounded-md focus:ring-1 focus:ring-gray-900 outline-none transition"
-                  >
-                    <option value="">Select a yacht (optional)</option>
-                    {yachtCategories.flatMap((category) =>
-                      category.yachts.map((yacht) => (
-                        <option key={yacht.id} value={yacht.name}>
-                          {yacht.name}
-                        </option>
-                      ))
-                    )}
-                  </select>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Additional Information
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    rows={4}
-                    className="w-full px-4 py-3 bg-gray-50 border-0 rounded-md focus:ring-1 focus:ring-gray-900 outline-none transition"
-                    placeholder="Tell us about your preferences and special requests..."
-                  ></textarea>
-                </div>
-
-                <button
-                  type="submit"
-                  className="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-8 py-3.5 rounded-md hover:bg-gray-800 transition-colors w-full"
-                >
-                  {submitting ? (
-                    <>
-                      <svg
-                        className="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        ></circle>
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        ></path>
-                      </svg>
-                      Sending...
-                    </>
-                  ) : submitted ? (
-                    <>Request Sent</>
-                  ) : (
-                    <>Submit Request</>
-                  )}
-                </button>
-              </form>
-
-              <div className="bg-gray-50 rounded-lg p-8 lg:p-10">
-                <h3 className="text-xl font-light mb-6 tracking-tight">
-                  Contact Us Directly
-                </h3>
-
-                <div className="space-y-6">
-                  <a
-                    href="https://wa.me/+377643917618"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-4 text-gray-700 hover:text-gray-900 transition-colors"
-                  >
-                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <MessageSquare className="w-5 h-5" />
-                    </div>
-                    <span>WhatsApp: +377 6 43 91 76 18</span>
-                  </a>
-
-                  <a
-                    href="tel:+37793501234"
-                    className="flex items-center gap-4 text-gray-700 hover:text-gray-900 transition-colors"
-                  >
-                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Phone className="w-5 h-5" />
-                    </div>
-                    <span>Phone: +377 9350 1234</span>
-                  </a>
-
-                  <a
-                    href="mailto:charter@rivierayachts.com"
-                    className="flex items-center gap-4 text-gray-700 hover:text-gray-900 transition-colors"
-                  >
-                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-5 h-5" />
-                    </div>
-                    <span>Email: charter@rivierayachts.com</span>
-                  </a>
-                </div>
-
-                <div className="mt-10 pt-8 border-t border-gray-200">
-                  <p className="text-gray-600 font-light">
-                    Our yacht charter specialists are available 24/7 to assist
-                    with your inquiries. We pride ourselves on providing
-                    personalized service tailored to your specific needs and
-                    preferences.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <Footer />
       </div>
-
-      <Footer />
     </>
   );
 };

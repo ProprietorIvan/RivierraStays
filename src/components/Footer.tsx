@@ -6,6 +6,8 @@ import {
   MapPin,
   Phone,
   MessageSquare,
+  Building,
+  Home,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,7 +20,7 @@ const Footer = () => {
       title: "Navigation",
       links: [
         { text: "Home", url: "/" },
-        { text: "Fleet", url: "/fleet" },
+        { text: "Properties", url: "/properties" },
         { text: "Contact", url: "/contact" },
       ],
     },
@@ -33,26 +35,26 @@ const Footer = () => {
     {
       title: "Contact Us",
       items: [
-        { icon: Phone, text: "+377 9350 1234", url: "tel:+37793501234" },
+        { icon: Phone, text: "+377 643917618", url: "tel:+377643917618" },
         {
           icon: Mail,
-          text: "charter@rivierayachts.com",
-          url: "mailto:charter@rivierayachts.com",
+          text: "info@riviera-stays.com",
+          url: "mailto:info@riviera-stays.com",
         },
         {
           icon: MessageSquare,
-          text: "WhatsApp: +377 6 43 91 76 18",
+          text: "WhatsApp: +377 643917618",
           url: "https://wa.me/+377643917618",
         },
-        { icon: MapPin, text: "Port Hercule, Monaco" },
+        { icon: MapPin, text: "7 avenue des Papalins, 98000 Monaco" },
       ],
     },
   ];
 
   const socialLinks = [
-    { icon: Facebook, url: "https://facebook.com" },
-    { icon: Instagram, url: "https://instagram.com" },
-    { icon: Linkedin, url: "https://linkedin.com" },
+    { icon: Facebook, url: "https://facebook.com/rivierastays" },
+    { icon: Instagram, url: "https://instagram.com/rivierastays" },
+    { icon: Linkedin, url: "https://linkedin.com/company/rivierastays" },
   ];
 
   return (
@@ -62,19 +64,16 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-6">
             <Link href="/" className="block">
-              <div className="relative w-48 h-14">
-                <Image
-                  src="/logo-white.png"
-                  alt="Riviera Yachts"
-                  fill
-                  className="object-contain object-left"
-                />
+              <div className="relative w-64 h-20">
+                <div className="text-white text-6xl font-['Corinthia'] tracking-wide">
+                  Riviera Stays
+                </div>
               </div>
             </Link>
             <p className="text-gray-300 text-sm max-w-xs font-light">
-              Experience the epitome of luxury yachting in the Mediterranean
-              with Riviera Yachts. Specializing in premium yacht charters for
-              unforgettable journeys.
+              Experience the epitome of luxury living in Monaco and the French
+              Riviera with Riviera Stays. Specializing in premium short-term
+              rentals for unforgettable stays.
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social, index) => {
@@ -148,10 +147,14 @@ const Footer = () => {
         <div className="mt-16 pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm font-light">
-              © {currentYear} Riviera Yachts. All rights reserved.
+              © {currentYear}{" "}
+              <span className="font-['Corinthia'] text-2xl text-white">
+                Riviera Stays
+              </span>
+              . All rights reserved.
             </p>
             <p className="text-gray-400 text-sm font-light">
-              Designed for exceptional experiences on the Mediterranean
+              Luxury short-term rentals in Monaco and the French Riviera
             </p>
           </div>
         </div>

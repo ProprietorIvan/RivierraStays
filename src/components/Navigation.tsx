@@ -20,7 +20,7 @@ const Navigation = ({
 
   const navLinks = [
     { text: "Home", url: "/" },
-    { text: "Fleet", url: "/fleet" },
+    { text: "Properties", url: "/properties" },
     { text: "Contact", url: "/contact" },
   ];
 
@@ -28,7 +28,7 @@ const Navigation = ({
     <nav
       className={`${
         transparent
-          ? "absolute top-0 left-0 right-0 z-50 backdrop-blur-sm"
+          ? "absolute top-0 left-0 right-0 z-50"
           : "bg-white border-b border-gray-200"
       }`}
     >
@@ -37,14 +37,16 @@ const Navigation = ({
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0">
-              <div className="relative w-48 h-14">
-                <Image
-                  src="/logo.png"
-                  alt="Riviera Yachts"
-                  fill
-                  className="object-contain object-left"
-                  priority
-                />
+              <div className="relative w-64 h-20">
+                {transparent ? (
+                  <div className="text-white text-6xl font-['Corinthia'] tracking-wide">
+                    Riviera Stays
+                  </div>
+                ) : (
+                  <div className="text-gray-900 text-6xl font-['Corinthia'] tracking-wide">
+                    Riviera Stays
+                  </div>
+                )}
               </div>
             </Link>
           </div>
