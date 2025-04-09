@@ -1,0 +1,72 @@
+{
+  "site_name": "Riviera Stays",
+  "nav": {
+    "home": "Home",
+    "properties": "Properties",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "footer": {
+    "rights": "All Rights Reserved",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookies": "Cookie Policy"
+  },
+  "home": {
+    "hero_title": "Luxury Short-Term Rentals in Monaco and French Riviera",
+    "hero_subtitle": "Experience the epitome of luxury living in the most prestigious locations",
+    "cta_button": "View Properties",
+    "featured_title": "Featured Properties",
+    "featured_subtitle": "Discover our handpicked selection of luxurious properties",
+    "view_all": "View All Properties"
+  },
+  "properties": {
+    "title": "Our Properties",
+    "subtitle": "Exclusive luxury rentals in Monaco and the French Riviera",
+    "filter_all": "All Properties",
+    "filter_monaco": "Monaco",
+    "filter_french_riviera": "French Riviera",
+    "beds": "Bedrooms",
+    "baths": "Bathrooms",
+    "guests": "Guests",
+    "view_details": "View Details",
+    "request_info": "Request Information",
+    "property_features": "Property Features",
+    "location": "Location",
+    "availability": "Check Availability"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with our team to inquire about our luxury properties",
+    "form_name": "Your Name",
+    "form_email": "Email Address",
+    "form_phone": "Phone Number",
+    "form_message": "Your Message",
+    "form_submit": "Send Message",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "follow_us": "Follow Us"
+  },
+  "form": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "check_in": "Check-in Date",
+    "check_out": "Check-out Date",
+    "guests": "Number of Guests",
+    "property": "Property",
+    "message": "Message",
+    "submit": "Submit",
+    "required": "Required field",
+    "invalid_email": "Invalid email address",
+    "success": "Your message has been sent successfully!",
+    "error": "There was an error sending your message. Please try again."
+  },
+  "language_selector": {
+    "language": "Language",
+    "en": "English",
+    "fr": "Français",
+    "it": "Italiano"
+  }
+} 

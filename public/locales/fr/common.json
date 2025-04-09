@@ -1,0 +1,72 @@
+{
+  "site_name": "Riviera Stays",
+  "nav": {
+    "home": "Accueil",
+    "properties": "Propriétés",
+    "about": "À Propos",
+    "contact": "Contact"
+  },
+  "footer": {
+    "rights": "Tous Droits Réservés",
+    "privacy": "Politique de Confidentialité",
+    "terms": "Conditions d'Utilisation",
+    "cookies": "Politique des Cookies"
+  },
+  "home": {
+    "hero_title": "Locations de Luxe à Court Terme à Monaco et sur la Côte d'Azur",
+    "hero_subtitle": "Découvrez le summum du luxe dans les emplacements les plus prestigieux",
+    "cta_button": "Voir les Propriétés",
+    "featured_title": "Propriétés en Vedette",
+    "featured_subtitle": "Découvrez notre sélection de propriétés luxueuses",
+    "view_all": "Voir Toutes les Propriétés"
+  },
+  "properties": {
+    "title": "Nos Propriétés",
+    "subtitle": "Locations de luxe exclusives à Monaco et sur la Côte d'Azur",
+    "filter_all": "Toutes les Propriétés",
+    "filter_monaco": "Monaco",
+    "filter_french_riviera": "Côte d'Azur",
+    "beds": "Chambres",
+    "baths": "Salles de Bain",
+    "guests": "Invités",
+    "view_details": "Voir les Détails",
+    "request_info": "Demander des Informations",
+    "property_features": "Caractéristiques",
+    "location": "Emplacement",
+    "availability": "Vérifier la Disponibilité"
+  },
+  "contact": {
+    "title": "Contactez-Nous",
+    "subtitle": "Prenez contact avec notre équipe pour vous renseigner sur nos propriétés de luxe",
+    "form_name": "Votre Nom",
+    "form_email": "Adresse Email",
+    "form_phone": "Numéro de Téléphone",
+    "form_message": "Votre Message",
+    "form_submit": "Envoyer le Message",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "email": "Email",
+    "follow_us": "Suivez-Nous"
+  },
+  "form": {
+    "name": "Nom",
+    "email": "Email",
+    "phone": "Téléphone",
+    "check_in": "Date d'Arrivée",
+    "check_out": "Date de Départ",
+    "guests": "Nombre d'Invités",
+    "property": "Propriété",
+    "message": "Message",
+    "submit": "Soumettre",
+    "required": "Champ obligatoire",
+    "invalid_email": "Adresse email invalide",
+    "success": "Votre message a été envoyé avec succès!",
+    "error": "Une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer."
+  },
+  "language_selector": {
+    "language": "Langue",
+    "en": "English",
+    "fr": "Français",
+    "it": "Italiano"
+  }
+} 

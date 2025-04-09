@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
+import LanguageSelector from "./LanguageSelector";
 
 interface NavigationProps {
   currentPage?: string;
@@ -17,11 +19,12 @@ const Navigation = ({
 }: NavigationProps) => {
   const { push } = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useTranslation("common");
 
   const navLinks = [
-    { text: "Home", url: "/" },
-    { text: "Properties", url: "/properties" },
-    { text: "Contact", url: "/contact" },
+    { text: t("nav.home"), url: "/" },
+    { text: t("nav.properties"), url: "/properties" },
+    { text: t("nav.contact"), url: "/contact" },
   ];
 
   return (
@@ -40,11 +43,11 @@ const Navigation = ({
               <div className="relative w-64 h-20">
                 {transparent ? (
                   <div className="text-white text-6xl font-['Corinthia'] tracking-wide">
-                    Riviera Stays
+                    {t("site_name")}
                   </div>
                 ) : (
                   <div className="text-gray-900 text-6xl font-['Corinthia'] tracking-wide">
-                    Riviera Stays
+                    {t("site_name")}
                   </div>
                 )}
               </div>
@@ -79,6 +82,7 @@ const Navigation = ({
               >
                 <span>WhatsApp</span>
               </Link>
+              <LanguageSelector />
             </div>
           </div>
 
@@ -124,6 +128,9 @@ const Navigation = ({
               >
                 <span>WhatsApp</span>
               </Link>
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <LanguageSelector />
+              </div>
             </div>
           </div>
         )}

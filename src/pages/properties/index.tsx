@@ -26,6 +26,9 @@ import {
 } from "lucide-react";
 import Footer from "@/components/Footer";
 import Head from "next/head";
+import { GetStaticProps } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 interface Feature {
   title: string;
@@ -54,6 +57,7 @@ interface PropertyCategory {
 }
 
 export default function Properties() {
+  const { t } = useTranslation("common");
   const [selectedProperty, setSelectedProperty] =
     useState<PropertyFeature | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -255,254 +259,135 @@ export default function Properties() {
   return (
     <>
       <Head>
-        <title>Luxury Properties | Riviera Stays</title>
-        <meta
-          name="description"
-          content="Explore our exclusive collection of luxury properties in Monaco and the French Riviera at riviera-stays.com. Find the perfect short-term rental for your next visit."
-        />
+        <title>
+          {t("properties.title")} | {t("site_name")}
+        </title>
+        <meta name="description" content={t("properties.subtitle")} />
       </Head>
 
       <div className="min-h-screen bg-white">
-        <Navigation currentPage="Properties" />
+        <Navigation />
 
         {/* Hero Section */}
-        <section className="relative py-20 bg-gray-800 text-white">
+        <section className="relative py-20 bg-gray-900 text-white">
           <div className="absolute inset-0 z-0 opacity-30">
             <Image
-              src="/photos/homepage/apartment2/004-photopetit-140323-1679310750.jpg"
-              alt="Luxury Properties"
+              src="/photos/homepage/apartment1/terrasse-1733152883.jpg"
+              alt="Luxury Properties in Monaco"
               fill
               className="object-cover"
-              priority
             />
           </div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <h1 className="text-5xl font-light mb-6 tracking-tight">
-              Our Luxury Properties
+              {t("properties.title")}
             </h1>
-            <p className="text-xl max-w-3xl">
-              Discover our exclusive collection of premium properties available
-              for short-term rental in Monaco and the French Riviera.
-            </p>
+            <p className="text-xl max-w-3xl">{t("properties.subtitle")}</p>
           </div>
         </section>
 
-        {/* Available Properties Notice */}
-        <section className="py-12 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-white p-8 rounded-lg shadow-md border border-gray-200">
-              <h2 className="text-2xl font-medium mb-4 text-gray-900">
-                Our Exclusive Property Portfolio
-              </h2>
-              <p className="text-lg text-gray-700 mb-4">
-                We have tens of luxury properties available throughout Monaco
-                and the French Riviera, many of which are not publicly listed
-                for privacy and exclusivity reasons.
-              </p>
-              <p className="text-lg text-gray-700 mb-4">
-                Whether you&apos;re looking for a budget-friendly option or the
-                most exclusive luxury experience, our diverse portfolio can
-                accommodate your needs. Contact our team today with your
-                specific requirements, and we&apos;ll prepare a tailored
-                proposal with properties that match your needs perfectly.
-              </p>
-              <div className="flex flex-col md:flex-row gap-4">
-                <Link
-                  href="#contact-form"
-                  className="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-md hover:bg-gray-800 transition-colors text-base font-medium"
-                >
-                  <span>Request a Custom Proposal</span>
-                  <ArrowRight size={18} />
-                </Link>
-                <Link
-                  href="https://wa.me/+377643917618"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition-colors text-base font-medium"
-                >
-                  <span>WhatsApp Us Now</span>
-                  <MessageSquare size={18} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Featured Properties */}
+        {/* Properties Grid */}
         <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="mb-16">
-              <h2 className="text-4xl font-light mb-6 text-gray-900">
-                Monaco Luxury Properties
-              </h2>
-              <p className="text-xl text-gray-600 max-w-4xl">
-                Experience unparalleled luxury and comfort with our premium
-                selection of properties in Monaco, perfect for exclusive stays
-                in the heart of the Principality.
-              </p>
-            </div>
+            {propertyCategories.map((category) => (
+              <div key={category.id} className="mb-20">
+                <div className="mb-10">
+                  <h2 className="text-3xl font-light mb-4 text-gray-900">
+                    {category.title}
+                  </h2>
+                  {category.description && (
+                    <p className="text-lg text-gray-600 max-w-4xl">
+                      {category.description}
+                    </p>
+                  )}
+                </div>
 
-            {/* Property Listings - Full Width Cards */}
-            <div className="space-y-24">
-              {propertyCategories[0].properties.map((property) => (
-                <div key={property.id} className="bg-white overflow-hidden">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    {/* Property Images */}
-                    <div className="relative h-[600px] overflow-hidden rounded-lg">
-                      <Image
-                        src={property.images[0]}
-                        alt={property.name}
-                        fill
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30"></div>
-                      <div className="absolute bottom-6 left-6 right-6">
-                        <span className="bg-gray-900/80 text-white px-4 py-2 rounded-full text-sm">
-                          {property.location}
-                        </span>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                  {category.properties.map((property) => (
+                    <div
+                      key={property.id}
+                      className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+                    >
+                      <div className="relative h-72">
+                        <Image
+                          src={property.images[0]}
+                          alt={property.name}
+                          fill
+                          className="object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        <div className="absolute bottom-6 left-6">
+                          <span className="bg-gray-900/80 text-white px-3 py-1 rounded-full text-sm">
+                            {property.location}
+                          </span>
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Property Info */}
-                    <div className="flex flex-col justify-center">
-                      <h3 className="text-3xl font-medium mb-6 text-gray-900">
-                        {property.name}
-                      </h3>
+                      <div className="p-6">
+                        <h3 className="text-xl font-medium mb-3">
+                          {property.name}
+                        </h3>
 
-                      <div className="grid grid-cols-2 gap-6 mb-8">
-                        {property.highlights?.map((highlight, index) => (
-                          <div key={index} className="flex items-start">
-                            <Check className="w-5 h-5 text-gray-900 mt-1 mr-2 flex-shrink-0" />
-                            <span className="text-lg text-gray-700">
-                              {highlight}
+                        <div className="flex flex-wrap gap-6 mb-4">
+                          <div className="flex items-center text-gray-700">
+                            <Users size={18} className="mr-2" />
+                            <span>
+                              {property.guests} {t("properties.guests")}
                             </span>
                           </div>
-                        ))}
-                      </div>
-
-                      <div className="flex flex-wrap gap-8 mb-8">
-                        <div className="flex flex-col items-center">
-                          <span className="text-4xl font-light text-gray-900">
-                            {property.guests}
-                          </span>
-                          <span className="text-gray-600 uppercase text-sm tracking-wider mt-2">
-                            GUESTS
-                          </span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <span className="text-4xl font-light text-gray-900">
-                            {property.bedrooms}
-                          </span>
-                          <span className="text-gray-600 uppercase text-sm tracking-wider mt-2">
-                            BEDROOMS
-                          </span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <span className="text-4xl font-light text-gray-900">
-                            {property.bathrooms}
-                          </span>
-                          <span className="text-gray-600 uppercase text-sm tracking-wider mt-2">
-                            BATHROOMS
-                          </span>
-                        </div>
-                        {property.sqm && (
-                          <div className="flex flex-col items-center">
-                            <span className="text-4xl font-light text-gray-900">
-                              {property.sqm}
-                            </span>
-                            <span className="text-gray-600 uppercase text-sm tracking-wider mt-2">
-                              SQM
+                          <div className="flex items-center text-gray-700">
+                            <Bed size={18} className="mr-2" />
+                            <span>
+                              {property.bedrooms} {t("properties.beds")}
                             </span>
                           </div>
-                        )}
-                      </div>
+                          <div className="flex items-center text-gray-700">
+                            <Bath size={18} className="mr-2" />
+                            <span>
+                              {property.bathrooms} {t("properties.baths")}
+                            </span>
+                          </div>
+                        </div>
 
-                      <p className="text-gray-700 mb-8 text-lg leading-relaxed line-clamp-4">
-                        {property.description}
-                      </p>
+                        <p className="text-gray-600 mb-6 line-clamp-3">
+                          {property.description}
+                        </p>
 
-                      <div className="flex flex-col sm:flex-row gap-4">
-                        <button
-                          onClick={() => setSelectedProperty(property)}
-                          className="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-md hover:bg-gray-800 transition-colors text-base font-medium"
-                        >
-                          <span>View Details</span>
-                          <ArrowRight size={18} />
-                        </button>
-                        <Link
-                          href="#contact-form"
-                          className="inline-flex items-center justify-center gap-2 bg-transparent border border-gray-900 text-gray-900 px-6 py-3 rounded-md hover:bg-gray-100 transition-colors text-base font-medium"
-                        >
-                          <span>Inquire About This Property</span>
-                          <MessageSquare size={18} />
-                        </Link>
+                        <div className="flex justify-between items-center">
+                          <button
+                            onClick={() => {
+                              setSelectedProperty(property);
+                              setCurrentImageIndex(0);
+                            }}
+                            className="inline-flex items-center text-gray-900 hover:text-gray-700 font-medium"
+                          >
+                            {t("properties.view_details")}
+                            <ChevronRight size={16} className="ml-1" />
+                          </button>
+                          <button
+                            onClick={() => {
+                              setSelectedProperty(property);
+                              setTimeout(() => {
+                                const contactForm = document.getElementById(
+                                  "property-contact-form"
+                                );
+                                contactForm?.scrollIntoView({
+                                  behavior: "smooth",
+                                });
+                              }, 100);
+                            }}
+                            className="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors text-sm font-medium"
+                          >
+                            <span>{t("properties.request_info")}</span>
+                            <MessageSquare size={16} />
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Full Property List CTA */}
-        <section className="py-24 bg-gray-900 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col lg:flex-row gap-16">
-              <div className="lg:w-1/2">
-                <h2 className="text-4xl font-light mb-6">
-                  Access Our Full Property Portfolio
-                </h2>
-                <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-                  What you see here is just a small sample of our extensive
-                  property portfolio. We have tens of luxury properties
-                  available throughout Monaco and the French Riviera, many of
-                  which are not publicly listed for privacy and exclusivity
-                  reasons.
-                </p>
-                <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-                  Whether you&apos;re looking for a budget-friendly option or
-                  the most exclusive luxury experience, our diverse portfolio
-                  can accommodate your needs. Contact our team today for a
-                  tailored proposal.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link
-                    href="#contact-form"
-                    className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-6 py-3 rounded-md hover:bg-gray-100 transition-colors text-base font-medium"
-                  >
-                    <span>Request Full Property List</span>
-                    <ArrowRight size={18} />
-                  </Link>
-                  <Link
-                    href="https://wa.me/+377643917618"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition-colors text-base font-medium"
-                  >
-                    <span>WhatsApp Us Now</span>
-                    <MessageSquare size={18} />
-                  </Link>
+                  ))}
                 </div>
               </div>
-              <div className="lg:w-1/2 relative h-[500px] rounded-lg overflow-hidden">
-                <Image
-                  src="/photos/homepage/apartment1/vue-cap-martin-1733152890.jpg"
-                  alt="Luxury Monaco Property"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-8 left-8 right-8">
-                  <span className="text-2xl font-medium text-white mb-2 block">
-                    Discover Your Dream Property
-                  </span>
-                  <p className="text-white/90 text-lg">
-                    We have the perfect match for your requirements and budget
-                  </p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
@@ -921,3 +806,11 @@ export default function Properties() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale || "en", ["common"])),
+    },
+  };
+};

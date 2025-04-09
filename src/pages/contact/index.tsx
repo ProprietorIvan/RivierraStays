@@ -242,7 +242,7 @@ const Contact = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [selectedProperty]);
+  }, [selectedProperty, handleNextImage, handlePrevImage, handleCloseGallery]);
 
   return (
     <>

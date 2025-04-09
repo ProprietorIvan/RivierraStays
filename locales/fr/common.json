@@ -1,0 +1,132 @@
+{
+  "navigation": {
+    "home": "Accueil",
+    "properties": "Propriétés",
+    "contact": "Contact",
+    "about": "À Propos",
+    "language": "Langue"
+  },
+  "footer": {
+    "company": "Entreprise",
+    "about": "À Propos",
+    "contact": "Contact",
+    "properties": "Propriétés",
+    "legal": "Mentions légales",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "cookies": "Politique des cookies",
+    "copyright": "© 2024 Riviera Stays. Tous droits réservés.",
+    "address": "7 avenue des Papalins, 98000 Monaco",
+    "phone": "+377 643917618",
+    "email": "info@riviera-stays.com"
+  },
+  "home": {
+    "hero": {
+      "title": "Propriétés de Luxe à Monaco & sur la Côte d'Azur",
+      "subtitle": "Découvrez le summum du luxe avec nos propriétés exclusives à Monaco et sur la Côte d'Azur",
+      "cta": "Voir les Propriétés"
+    },
+    "about": {
+      "title": "Vivez le Luxe",
+      "description": "Riviera Stays propose une collection soigneusement sélectionnée des propriétés les plus prestigieuses de Monaco et de la Côte d'Azur. Des penthouses modernes avec vue panoramique sur la mer aux villas historiques avec jardins méditerranéens, nos propriétés incarnent l'essence du luxe sur la Côte d'Azur.",
+      "cta": "En Savoir Plus"
+    },
+    "properties": {
+      "title": "Propriétés en Vedette",
+      "subtitle": "Découvrez notre sélection des propriétés les plus prestigieuses",
+      "cta": "Voir Toutes les Propriétés"
+    }
+  },
+  "properties": {
+    "title": "Nos Propriétés de Luxe",
+    "subtitle": "Découvrez notre sélection exclusive de propriétés de luxe à Monaco et sur la Côte d'Azur",
+    "filter": {
+      "all": "Toutes les Propriétés",
+      "monaco": "Monaco",
+      "frenchRiviera": "Côte d'Azur",
+      "search": "Rechercher des propriétés...",
+      "guests": "Invités",
+      "bedrooms": "Chambres",
+      "bathrooms": "Salles de bain",
+      "apply": "Appliquer les filtres",
+      "reset": "Réinitialiser"
+    },
+    "contact": {
+      "title": "Intéressé par cette propriété?",
+      "description": "Notre équipe est prête à vous fournir plus d'informations et à organiser une visite.",
+      "cta": "Contactez-nous"
+    }
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Entrez en contact avec notre équipe pour vous renseigner sur nos propriétés de luxe ou pour demander une proposition personnalisée pour votre séjour à Monaco ou sur la Côte d'Azur.",
+    "form": {
+      "name": "Nom Complet",
+      "email": "Email",
+      "phone": "Numéro de Téléphone",
+      "message": "Message",
+      "checkIn": "Date d'Arrivée",
+      "checkOut": "Date de Départ",
+      "guests": "Nombre d'Invités",
+      "propertyInterest": "Propriété d'Intérêt",
+      "submit": "Envoyer le Message",
+      "success": "Merci pour votre message. Nous vous répondrons dans les plus brefs délais.",
+      "error": "Une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer."
+    },
+    "info": {
+      "title": "Nos Coordonnées",
+      "address": "7 avenue des Papalins, 98000 Monaco",
+      "phone": "+377 643917618",
+      "email": "info@riviera-stays.com",
+      "hours": "Lundi - Vendredi: 9:00 - 18:00"
+    }
+  },
+  "about": {
+    "title": "À Propos de Riviera Stays",
+    "subtitle": "Votre partenaire de confiance pour des hébergements de luxe à Monaco et sur la Côte d'Azur",
+    "mission": {
+      "title": "Notre Mission",
+      "description": "Chez Riviera Stays, notre mission est de permettre aux voyageurs exigeants d'accéder aux propriétés les plus exceptionnelles de Monaco et de la Côte d'Azur, complétées par un service personnalisé qui anticipe et dépasse les attentes."
+    },
+    "values": {
+      "title": "Nos Valeurs",
+      "excellence": {
+        "title": "Excellence",
+        "description": "Nous nous engageons à l'excellence dans tous les aspects de notre service, des propriétés que nous sélectionnons aux expériences que nous créons."
+      },
+      "integrity": {
+        "title": "Intégrité",
+        "description": "Nous opérons avec une transparence et une honnêteté totales, établissant des relations durables avec nos clients et partenaires."
+      },
+      "personalization": {
+        "title": "Personnalisation",
+        "description": "Nous comprenons que chaque client est unique, et nous adaptons nos services pour répondre aux préférences et aux exigences individuelles."
+      }
+    },
+    "team": {
+      "title": "Notre Équipe",
+      "description": "Notre équipe diversifiée de professionnels réunit une expertise en immobilier de luxe, en hôtellerie et une connaissance locale pour garantir une expérience inégalée pour nos clients."
+    }
+  },
+  "property": {
+    "features": "Caractéristiques",
+    "amenities": "Équipements",
+    "location": "Emplacement",
+    "inquire": "Renseignez-vous sur cette propriété",
+    "guests": "Invités",
+    "bedrooms": "Chambres",
+    "bathrooms": "Salles de bain",
+    "view": "Vue",
+    "size": "Superficie",
+    "availability": "Vérifier la Disponibilité",
+    "similarProperties": "Propriétés Similaires"
+  },
+  "cta": {
+    "viewProperties": "Voir les Propriétés",
+    "contactUs": "Contactez-nous",
+    "learnMore": "En Savoir Plus",
+    "bookNow": "Réserver Maintenant",
+    "inquire": "Se Renseigner",
+    "viewDetails": "Voir les Détails"
+  }
+} 

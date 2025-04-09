@@ -3,7 +3,7 @@ export default function handler(req, res) {
   res.setHeader('Content-Type', 'text/xml');
   
   // Define the base URL of your website
-  const baseUrl = 'https://rivierayachts.com';
+  const baseUrl = 'https://riviera-stays.com';
   
   // Generate the current date in the format required for sitemaps
   const date = new Date().toISOString();
@@ -11,11 +11,19 @@ export default function handler(req, res) {
   // Define all the pages of your website
   const pages = [
     '',
-    '/fleet',
+    '/properties',
     '/about',
     '/contact',
     '/privacy',
     '/terms',
+    '/cookies',
+    '/why-chose-us',
+    '/services',
+    '/services/drywall',
+    '/services/flooring',
+    '/services/kitchen-bath',
+    '/services/mold',
+    '/services/structural-drying',
   ];
   
   // Generate the sitemap XML content

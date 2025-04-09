@@ -1,0 +1,72 @@
+{
+  "site_name": "Riviera Stays",
+  "nav": {
+    "home": "Home",
+    "properties": "Proprietà",
+    "about": "Chi Siamo",
+    "contact": "Contatti"
+  },
+  "footer": {
+    "rights": "Tutti i Diritti Riservati",
+    "privacy": "Informativa sulla Privacy",
+    "terms": "Termini di Servizio",
+    "cookies": "Politica dei Cookie"
+  },
+  "home": {
+    "hero_title": "Affitti di Lusso a Breve Termine a Monaco e sulla Costa Azzurra",
+    "hero_subtitle": "Vivi l'apice del lusso nelle località più prestigiose",
+    "cta_button": "Visualizza Proprietà",
+    "featured_title": "Proprietà in Evidenza",
+    "featured_subtitle": "Scopri la nostra selezione di proprietà di lusso",
+    "view_all": "Visualizza Tutte le Proprietà"
+  },
+  "properties": {
+    "title": "Le Nostre Proprietà",
+    "subtitle": "Affitti di lusso esclusivi a Monaco e sulla Costa Azzurra",
+    "filter_all": "Tutte le Proprietà",
+    "filter_monaco": "Monaco",
+    "filter_french_riviera": "Costa Azzurra",
+    "beds": "Camere da Letto",
+    "baths": "Bagni",
+    "guests": "Ospiti",
+    "view_details": "Visualizza Dettagli",
+    "request_info": "Richiedi Informazioni",
+    "property_features": "Caratteristiche della Proprietà",
+    "location": "Posizione",
+    "availability": "Verifica Disponibilità"
+  },
+  "contact": {
+    "title": "Contattaci",
+    "subtitle": "Mettiti in contatto con il nostro team per informazioni sulle nostre proprietà di lusso",
+    "form_name": "Il Tuo Nome",
+    "form_email": "Indirizzo Email",
+    "form_phone": "Numero di Telefono",
+    "form_message": "Il Tuo Messaggio",
+    "form_submit": "Invia Messaggio",
+    "address": "Indirizzo",
+    "phone": "Telefono",
+    "email": "Email",
+    "follow_us": "Seguici"
+  },
+  "form": {
+    "name": "Nome",
+    "email": "Email",
+    "phone": "Telefono",
+    "check_in": "Data di Check-in",
+    "check_out": "Data di Check-out",
+    "guests": "Numero di Ospiti",
+    "property": "Proprietà",
+    "message": "Messaggio",
+    "submit": "Invia",
+    "required": "Campo obbligatorio",
+    "invalid_email": "Indirizzo email non valido",
+    "success": "Il tuo messaggio è stato inviato con successo!",
+    "error": "Si è verificato un errore durante l'invio del messaggio. Per favore riprova."
+  },
+  "language_selector": {
+    "language": "Lingua",
+    "en": "English",
+    "fr": "Français",
+    "it": "Italiano"
+  }
+} 

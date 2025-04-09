@@ -1,0 +1,132 @@
+{
+  "navigation": {
+    "home": "Home",
+    "properties": "Properties",
+    "contact": "Contact",
+    "about": "About Us",
+    "language": "Language"
+  },
+  "footer": {
+    "company": "Company",
+    "about": "About Us",
+    "contact": "Contact",
+    "properties": "Properties",
+    "legal": "Legal",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookie Policy",
+    "copyright": "© 2024 Riviera Stays. All rights reserved.",
+    "address": "7 avenue des Papalins, 98000 Monaco",
+    "phone": "+377 643917618",
+    "email": "info@riviera-stays.com"
+  },
+  "home": {
+    "hero": {
+      "title": "Luxury Properties in Monaco & French Riviera",
+      "subtitle": "Experience the pinnacle of luxury living with our exclusive properties in Monaco and the French Riviera",
+      "cta": "View Properties"
+    },
+    "about": {
+      "title": "Experience Luxury Living",
+      "description": "Riviera Stays offers a curated collection of the most prestigious properties in Monaco and the French Riviera. From modern penthouses with panoramic sea views to historic villas with Mediterranean gardens, our properties embody the essence of luxury living on the Côte d'Azur.",
+      "cta": "Learn More"
+    },
+    "properties": {
+      "title": "Featured Properties",
+      "subtitle": "Discover our selection of the most prestigious properties",
+      "cta": "View All Properties"
+    }
+  },
+  "properties": {
+    "title": "Our Luxury Properties",
+    "subtitle": "Discover our exclusive selection of luxury properties in Monaco and the French Riviera",
+    "filter": {
+      "all": "All Properties",
+      "monaco": "Monaco",
+      "frenchRiviera": "French Riviera",
+      "search": "Search properties...",
+      "guests": "Guests",
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "apply": "Apply Filters",
+      "reset": "Reset"
+    },
+    "contact": {
+      "title": "Interested in this property?",
+      "description": "Our team is ready to provide you with more information and arrange a viewing.",
+      "cta": "Contact Us"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with our team to inquire about our luxury properties or to request a custom proposal for your stay in Monaco or the French Riviera.",
+    "form": {
+      "name": "Full Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "message": "Message",
+      "checkIn": "Check-in Date",
+      "checkOut": "Check-out Date",
+      "guests": "Number of Guests",
+      "propertyInterest": "Property of Interest",
+      "submit": "Send Message",
+      "success": "Thank you for your message. We will get back to you shortly.",
+      "error": "There was an error sending your message. Please try again."
+    },
+    "info": {
+      "title": "Our Contact Information",
+      "address": "7 avenue des Papalins, 98000 Monaco",
+      "phone": "+377 643917618",
+      "email": "info@riviera-stays.com",
+      "hours": "Monday - Friday: 9:00 - 18:00"
+    }
+  },
+  "about": {
+    "title": "About Riviera Stays",
+    "subtitle": "Your trusted partner for luxury accommodations in Monaco and the French Riviera",
+    "mission": {
+      "title": "Our Mission",
+      "description": "At Riviera Stays, our mission is to provide discerning travelers with access to the most exceptional properties in Monaco and the French Riviera, complemented by personalized service that anticipates and exceeds expectations."
+    },
+    "values": {
+      "title": "Our Values",
+      "excellence": {
+        "title": "Excellence",
+        "description": "We are committed to excellence in every aspect of our service, from the properties we select to the experiences we create."
+      },
+      "integrity": {
+        "title": "Integrity",
+        "description": "We operate with complete transparency and honesty, building lasting relationships with our clients and partners."
+      },
+      "personalization": {
+        "title": "Personalization",
+        "description": "We understand that each client is unique, and we tailor our services to meet individual preferences and requirements."
+      }
+    },
+    "team": {
+      "title": "Our Team",
+      "description": "Our diverse team of professionals brings together expertise in luxury real estate, hospitality, and local knowledge to ensure an unparalleled experience for our clients."
+    }
+  },
+  "property": {
+    "features": "Features",
+    "amenities": "Amenities",
+    "location": "Location",
+    "inquire": "Inquire About This Property",
+    "guests": "Guests",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "view": "View",
+    "size": "Size",
+    "availability": "Check Availability",
+    "similarProperties": "Similar Properties"
+  },
+  "cta": {
+    "viewProperties": "View Properties",
+    "contactUs": "Contact Us",
+    "learnMore": "Learn More",
+    "bookNow": "Book Now",
+    "inquire": "Inquire",
+    "viewDetails": "View Details"
+  }
+} 

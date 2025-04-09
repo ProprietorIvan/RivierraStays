@@ -11,29 +11,31 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { t } = useTranslation("common");
 
   const footerLinks = [
     {
-      title: "Navigation",
+      title: t("nav.home"),
       links: [
-        { text: "Home", url: "/" },
-        { text: "Properties", url: "/properties" },
-        { text: "Contact", url: "/contact" },
+        { text: t("nav.home"), url: "/" },
+        { text: t("nav.properties"), url: "/properties" },
+        { text: t("nav.contact"), url: "/contact" },
       ],
     },
     {
       title: "Legal",
       links: [
-        { text: "Privacy Policy", url: "/privacy" },
-        { text: "Terms of Service", url: "/terms" },
-        { text: "Cookie Policy", url: "/cookies" },
+        { text: t("footer.privacy"), url: "/privacy" },
+        { text: t("footer.terms"), url: "/terms" },
+        { text: t("footer.cookies"), url: "/cookies" },
       ],
     },
     {
-      title: "Contact Us",
+      title: t("contact.title"),
       items: [
         { icon: Phone, text: "+377 643917618", url: "tel:+377643917618" },
         {
@@ -66,14 +68,12 @@ const Footer = () => {
             <Link href="/" className="block">
               <div className="relative w-64 h-20">
                 <div className="text-white text-6xl font-['Corinthia'] tracking-wide">
-                  Riviera Stays
+                  {t("site_name")}
                 </div>
               </div>
             </Link>
             <p className="text-gray-300 text-sm max-w-xs font-light">
-              Experience the epitome of luxury living in Monaco and the French
-              Riviera with Riviera Stays. Specializing in premium short-term
-              rentals for unforgettable stays.
+              {t("home.hero_subtitle")}
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social, index) => {
@@ -149,12 +149,12 @@ const Footer = () => {
             <p className="text-gray-400 text-sm font-light">
               © {currentYear}{" "}
               <span className="font-['Corinthia'] text-2xl text-white">
-                Riviera Stays
+                {t("site_name")}
               </span>
-              . All rights reserved.
+              . {t("footer.rights")}.
             </p>
             <p className="text-gray-400 text-sm font-light">
-              Luxury short-term rentals in Monaco and the French Riviera
+              {t("home.hero_title")}
             </p>
           </div>
         </div>

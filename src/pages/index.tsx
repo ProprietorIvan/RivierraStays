@@ -24,8 +24,13 @@ import Image from "next/image";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const Home = () => {
+  const { t } = useTranslation("common");
+
   // Structured data for rich snippets
   const structuredData = {
     "@context": "https://schema.org",
@@ -138,10 +143,12 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>Luxury Short-Term Rentals in Monaco | Riviera Stays</title>
+        <title>
+          {t("home.hero_title")} | {t("site_name")}
+        </title>
         <meta
           name="description"
-          content="Experience the ultimate in luxury short-term rentals with Riviera Stays. Discover Monaco and the French Riviera's most exclusive properties for your perfect stay."
+          content={`${t("home.hero_subtitle")} ${t("site_name")}.`}
         />
         <meta
           name="keywords"
@@ -151,11 +158,11 @@ const Home = () => {
         {/* Open Graph tags */}
         <meta
           property="og:title"
-          content="Luxury Short-Term Rentals in Monaco | Riviera Stays"
+          content={`${t("home.hero_title")} | ${t("site_name")}`}
         />
         <meta
           property="og:description"
-          content="Experience the ultimate in luxury short-term rentals with Riviera Stays. Discover Monaco and the French Riviera's most exclusive destinations."
+          content={`${t("home.hero_subtitle")} ${t("site_name")}.`}
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://riviera-stays.com" />
@@ -168,12 +175,9 @@ const Home = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="Luxury Short-Term Rentals in Monaco | Riviera Stays"
+          content={`${t("home.hero_title")} | ${t("site_name")}`}
         />
-        <meta
-          name="twitter:description"
-          content="Experience the ultimate in luxury short-term rentals with Riviera Stays."
-        />
+        <meta name="twitter:description" content={t("home.hero_subtitle")} />
         <meta
           name="twitter:image"
           content="https://riviera-stays.com/twitter-image.jpg"
@@ -198,110 +202,104 @@ const Home = () => {
               alt="Luxury property background"
               fill
               className="object-cover"
-              priority
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30"></div>
+            <div className="absolute inset-0 bg-black opacity-50"></div>
           </div>
 
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="max-w-3xl">
-              <h1 className="text-5xl md:text-7xl font-light mb-6 tracking-tight text-white leading-tight">
-                Experience the Ultimate in Luxury Stays
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-white">
+            <div className="max-w-4xl">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-light mb-6 leading-tight">
+                {t("home.hero_title")}
               </h1>
-              <p className="text-xl text-white/90 max-w-2xl mb-10 font-light leading-relaxed">
-                Discover Monaco and the French Riviera&apos;s most exclusive
-                properties for your perfect short-term rental experience.
+              <p className="text-xl md:text-2xl font-light mb-10 max-w-2xl">
+                {t("home.hero_subtitle")}
               </p>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/properties"
-                  className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-md hover:bg-gray-100 transition-colors text-base font-medium"
-                >
-                  <span>Explore Our Properties</span>
-                </Link>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-md hover:bg-gray-800 transition-colors text-base font-medium"
-                >
-                  <span>Contact Us</span>
-                </Link>
-              </div>
+              <Link
+                href="/properties"
+                className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-6 py-3 rounded-md hover:bg-gray-100 transition-colors text-base font-medium"
+              >
+                <span>{t("home.cta_button")}</span>
+                <ArrowRight size={18} />
+              </Link>
             </div>
           </div>
         </section>
 
-        {/* Featured Properties Section */}
+        {/* Featured Properties */}
         <section className="py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-5xl font-light mb-6 tracking-tight">
-                Featured Properties
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-16 text-center">
+              <h2 className="text-4xl font-light mb-6 text-gray-900">
+                {t("home.featured_title")}
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Discover our collection of handpicked luxury properties in
-                Monaco and the French Riviera, offering unparalleled comfort and
-                style for your stay.
+                {t("home.featured_subtitle")}
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               {featuredProperties.map((property, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-gray-100"
+                  className="group bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
                 >
-                  <div className="relative h-80">
+                  <div className="relative h-64">
                     <Image
                       src={property.image}
                       alt={property.name}
                       fill
-                      className="object-cover"
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                  </div>
-                  <div className="p-8">
-                    <div className="flex items-center text-sm text-gray-500 mb-3">
-                      <MapPin size={16} className="mr-2" />
-                      <span>{property.location}</span>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div className="absolute bottom-6 left-6">
+                      <span className="bg-white/90 text-gray-900 px-3 py-1 rounded-full text-sm">
+                        {property.location}
+                      </span>
                     </div>
-                    <h3 className="text-2xl font-medium mb-4">
+                  </div>
+
+                  <div className="p-6">
+                    <h3 className="text-xl font-medium mb-3">
                       {property.name}
                     </h3>
-                    <p className="text-gray-600 mb-6 text-lg">
-                      {property.description}
-                    </p>
-                    <div className="flex flex-wrap gap-6 mb-6">
+
+                    <div className="flex flex-wrap gap-6 mb-4">
                       <div className="flex items-center text-gray-700">
-                        <Users size={20} className="mr-2" />
-                        <span className="text-lg">
-                          {property.guests} guests
+                        <Users size={18} className="mr-2" />
+                        <span>
+                          {property.guests} {t("properties.guests")}
                         </span>
                       </div>
                       <div className="flex items-center text-gray-700">
-                        <Bed size={20} className="mr-2" />
-                        <span className="text-lg">
-                          {property.bedrooms} bedrooms
+                        <Bed size={18} className="mr-2" />
+                        <span>
+                          {property.bedrooms} {t("properties.beds")}
                         </span>
                       </div>
                     </div>
+
+                    <p className="text-gray-600 mb-6 line-clamp-3">
+                      {property.description}
+                    </p>
+
                     <Link
                       href="/properties"
-                      className="inline-flex items-center text-gray-900 hover:text-gray-700 text-lg font-medium"
+                      className="inline-flex items-center text-gray-900 hover:text-gray-700 font-medium"
                     >
-                      <span>View Details</span>
-                      <ChevronRight size={20} className="ml-2" />
+                      {t("properties.view_details")}
+                      <ChevronRight size={16} className="ml-1" />
                     </Link>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="text-center mt-16">
+            <div className="mt-16 text-center">
               <Link
                 href="/properties"
-                className="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-md hover:bg-gray-800 transition-colors text-base font-medium"
+                className="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-md hover:bg-gray-800 transition-colors text-base font-medium"
               >
-                <span>View All Properties</span>
+                <span>{t("home.view_all")}</span>
                 <ArrowRight size={18} />
               </Link>
             </div>
@@ -545,6 +543,14 @@ const Home = () => {
       </div>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale || "en", ["common"])),
+    },
+  };
 };
 
 export default Home;
